@@ -106,4 +106,4 @@ import os
 os.chdir(<ABSOLUTE_PATH>)
 ```
 
-Where `<ABSOLUTE_PATH>`is the path to the via repository for your local machine. This will allow you to run code with relative paths across the entire repository.
+Where `<ABSOLUTE_PATH>`is the path to the via repository for your local machine. This will allow you to run code with relative paths across the entire repository. See `notebooks/sample.ipynb` for details.
