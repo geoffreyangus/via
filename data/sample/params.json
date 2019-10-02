@@ -1,0 +1,11 @@
+{
+    "pathways_path": "data/raw/raw_pathways.csv",
+    "attr_filters": {
+        "final_major": [
+            "HSTRY"
+        ]
+    },
+    "time_filters": {
+        "omit_summer": true
+    }
+}

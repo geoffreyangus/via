@@ -102,3 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+data/raw
+course_indices.json
+sequences.npy

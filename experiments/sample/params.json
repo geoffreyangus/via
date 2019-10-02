@@ -1,0 +1,22 @@
+{
+    "dataset_dir": "/Users/geoffreyangus/research-repositories/via_pathways/data/pathways_datasets_final/intervals_no_summer_ug/2010-2018",
+    "graph_size": 1000,
+    "student_filters": {
+        "min_courses": 10
+    },
+    "course_filters": {
+        "p_cutoff": 0.05,
+        "ignore": [
+            "IHUM*",
+            "PWR*",
+            "THINK*",
+            "OSP*",
+            "ATHLETIC*",
+            "WCT*"
+        ]
+    },
+    "model_class": "ExponentialDiscountConditional",
+    "model_params": {
+        "gamma": [0, 1, 1, 1]
+    }
+}
