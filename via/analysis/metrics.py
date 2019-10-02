@@ -12,7 +12,10 @@ from networkx.algorithms.cluster import clustering
 from via.util.util import get_prefix, get_networkx_graph
 
 
-def highest_out_degree(self, g, course_ids, k=20):
+def top_k_out_degree(g, course_ids, k=20):
+    """
+    For each node in course_ids, finds the top k nodes with the highest out-flowing edge weights.
+    """
     res = {}
     for course_id in course_ids:
         assert course_id in g.nodes, 'node must exist in graph'
@@ -24,14 +27,14 @@ def highest_out_degree(self, g, course_ids, k=20):
         )[:k]
     return res
 
-def betweenness_centrality(self, g, k=20):
+def betweenness_centrality(g, k=20):
     res = nx.betweenness_centrality(g, weight='weight').items()
     res = sorted(
         res, key=lambda x: x[1], reverse=True
     )[:k]
     return res
 
-def node_department_in_degree(self, g, course_ids=[], k=20):
+def node_department_in_degree(g, course_ids=[], k=20):
     res = {}
     for course_id in course_ids:
         assert course_id in g.nodes, 'node must exist in graph'
@@ -48,7 +51,7 @@ def node_department_in_degree(self, g, course_ids=[], k=20):
         )[:k]
     return res
 
-def node_department_out_degree(self, g, course_ids=[], k=20):
+def node_department_out_degree(g, course_ids=[], k=20):
     res = {}
     for course_id in course_ids:
         assert course_id in g.nodes, 'node must exist in graph'
@@ -60,7 +63,7 @@ def node_department_out_degree(self, g, course_ids=[], k=20):
         )[:k]
     return res
 
-def get_avg_degree_by_department(self, g, nbr_direction='in'):
+def get_avg_degree_by_department(g, nbr_direction='in'):
     '''Given a set of edges, calculate the average weight by department.
 
     This assumes that there is some particular node of interest and that
@@ -89,7 +92,7 @@ def get_avg_degree_by_department(self, g, nbr_direction='in'):
             sum_count[department]
     return avg_weight
 
-def stopgap_nodes(self, g, department='', k=20):
+def stopgap_nodes(g, department='', k=20):
     department_node_ids = [
         node for node in g.nodes if department == get_prefix(node)
     ]
@@ -121,7 +124,7 @@ def stopgap_nodes(self, g, department='', k=20):
     )[:k]
     return res
 
-def target_out_degree(self, g, src_department='', dst_department='', k=20):
+def target_out_degree(g, src_department='', dst_department='', k=20):
     # all edges that leave src_department but do not enter dst_department
     ext_edges = {
         edge: g.get_edge_data(edge[0], edge[1]) for edge in g.edges
@@ -169,14 +172,14 @@ def target_out_degree(self, g, src_department='', dst_department='', k=20):
     )[:k]
     return res
 
-def num_courses(self, g, k=20):
+def num_courses(g, k=20):
     res = Counter([get_prefix(course) for course in g.nodes])
     res = sorted(
         list(num_courses.items()), key=lambda x: x[1], reverse=True
     )[:k]
     return res
 
-def modularity(self, g, department_clusters=None, use_undirected=False, k=20):
+def modularity(g, department_clusters=None, use_undirected=False, k=20):
     if use_undirected:
         g = g.to_undirected()
     else:
@@ -195,7 +198,7 @@ def modularity(self, g, department_clusters=None, use_undirected=False, k=20):
     )[:k]
     return res
 
-def clustering_coefficient(self, g, department_clusters=None, use_undirected=False, k=20):
+def clustering_coefficient(g, department_clusters=None, use_undirected=False, k=20):
     if use_undirected:
         g = g.to_undirected()
     else:
@@ -214,7 +217,7 @@ def clustering_coefficient(self, g, department_clusters=None, use_undirected=Fal
     )[:k]
     return res
 
-def department_out_degree(self, g, department_clusters=None, use_undirected=False, k=20):
+def department_out_degree(g, department_clusters=None, use_undirected=False, k=20):
     if use_undirected:
         g = g.to_undirected()
     else:
@@ -234,7 +237,7 @@ def department_out_degree(self, g, department_clusters=None, use_undirected=Fals
         res, key=lambda x: x[1], reverse=True
     )[:k]
 
-def department_in_degree(self, g, department_clusters=None, use_undirected=False, k=20):
+def department_in_degree(g, department_clusters=None, use_undirected=False, k=20):
     if use_undirected:
         g = g.to_undirected()
     else:
@@ -254,7 +257,7 @@ def department_in_degree(self, g, department_clusters=None, use_undirected=False
         res, key=lambda x: x[1], reverse=True
     )[:k]
 
-def department_internal_edges(self, g, department_clusters=None, use_undirected=False, k=20):
+def department_internal_edges(g, department_clusters=None, use_undirected=False, k=20):
     if use_undirected:
         g = g.to_undirected()
     else:
@@ -274,10 +277,10 @@ def department_internal_edges(self, g, department_clusters=None, use_undirected=
         res, key=lambda x: x[1], reverse=True
     )[:k]
 
-def subgraph_motifs(self, use_undirected=False):
+def subgraph_motifs(use_undirected=False):
     print("subgraph_motifs not implemented. Skipping.")
 
-def extract_departments(self, g):
+def extract_departments(g):
     department_clusters = {}
     prefixes = {get_prefix(course) for course in g.nodes}
     for prefix in prefixes:

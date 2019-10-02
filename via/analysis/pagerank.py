@@ -1,8 +1,9 @@
 import networkx as nx
+from tqdm import tqdm
 
 from via.util.util import get_networkx_graph
 
-def run_randomwalk(experiment_dir, given_courses=[], num_iters=1000,
+def run_randomwalk(g, given_courses=[], num_iters=1000,
                    num_quarters=3, courses_per_quarter=3, course_pool_choices=20):
     """
     Runs random walk to simulate students taking courses.
@@ -48,7 +49,7 @@ def run_randomwalk(experiment_dir, given_courses=[], num_iters=1000,
         hist += Counter(student_result)
     return hist
 
-def run_pagerank_recommender(experiment_dir, target_course, given_courses={}):
+def run_pagerank_recommender(g, target_course, given_courses={}):
     """
     Finds the course that leads to the highest pagerank for target_course.
 
@@ -60,14 +61,13 @@ def run_pagerank_recommender(experiment_dir, target_course, given_courses={}):
         max_node    the node that led to the highest pagerank for the target
         target_pagerank the resulting pagerank for target_course
     """
-    g = get_networkx_graph(experiment_dir, weights='probs'):
     if type(given_courses) == list:
         ppr = {course: 1 for course in given_courses}
     elif type(given_courses) == dict:
         ppr = given_courses
     else:
         ppr = None
-    assert len(set(ppr.keys())) & set(g.nodes)) > 0, "ppr must have nodes in g"
+    assert len(set(ppr.keys()) & set(g.nodes)) > 0, "ppr must have nodes in g"
 
     max_node = None
     max_pr = -1

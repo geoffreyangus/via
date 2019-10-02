@@ -35,7 +35,8 @@ setuptools.setup(
         'python-louvain',
         'tqdm',
         'scipy',
-        'scikit-learn'
+        'scikit-learn',
+        'jupyterlab'
     ],
     python_requires='>=3',
 )
