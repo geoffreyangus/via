@@ -96,7 +96,7 @@ which will each output additional analyses into `<EXPERIMENT_DIR>`.
 
 #### 6.) Additional Metrics and Visualizations (Optional)
 
-There are some operation that are best suited for Jupyter notebook exploration; specifically, matplotlib-type visualizations and other network analysis (e.g. computing centrality, PageRank score, etc.). We define functions for these operations in `analysis/metrics.py` and `analysis/visualization.py`. Note: since the refactor, _these have not been tested thoroughly_. The core implementation is unchanged, but there may be lingering compiler errors. In order to set up a Jupyter notebook for analysis, create a Jupyter notebook in `notebooks/` and be sure to place these commands in the first cell:
+There are some operations that are best suited for Jupyter notebook exploration; specifically, matplotlib-type visualizations and other network analysis (e.g. computing centrality, PageRank score, etc.). We define functions for these operations in `analysis/metrics.py` and `analysis/visualization.py`. Note: since the refactor, _these have not been tested thoroughly_. The core implementation is unchanged, but there may be lingering compiler errors. In order to set up a Jupyter notebook for analysis, create a Jupyter notebook in `notebooks/` and be sure to place these commands in the first cell:
 
 ```
 %load_ext autoreload
