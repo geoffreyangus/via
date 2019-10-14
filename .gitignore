@@ -106,3 +106,6 @@ venv.bak/
 data/raw
 course_indices.json
 sequences.npy
+
+#vscode
+.vscode

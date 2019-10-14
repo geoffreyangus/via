@@ -1,0 +1,18 @@
+body {
+    background-color: #9EC7F7;
+}
+
+h1, h3 {
+    font-family: 'Roboto', sans-serif;
+}
+
+#cy {
+    background-color: white;
+    width: 80vw;
+    height: 80vh;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
