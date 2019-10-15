@@ -2,8 +2,17 @@ body {
     background-color: #9EC7F7;
 }
 
-h1, h3 {
+h1, h4 {
     font-family: 'Roboto', sans-serif;
+    text-align: center;
+    width: auto;
+}
+
+h1 {
+    margin-bottom: 0px;
+}
+h3 {
+    margin-top: 0px;
 }
 
 #cy {

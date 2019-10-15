@@ -1,51 +1,51 @@
+var cy;
+
+var elements = [ // list of graph elements to start with
+    { // node a
+      data: { id: 'a' }
+    },
+    { // node b
+      data: { id: 'b' }
+    },
+    {
+      data: { id: 'c'}
+    },
+    {
+        data: { id: 'd'}
+      },
+      {
+        data: { id: 'e'}
+      },
+      {
+        data: { id: 'f'}
+      },
+    { // edge ab
+      data: { id: 'ab', source: 'a', target: 'b' }
+    }
+];
+
+var style = [ // the stylesheet for the graph
+    {
+      selector: 'node',
+      style: {
+        'background-color': '#666',
+        'label': 'data(id)'
+      }
+    },
+
+    {
+      selector: 'edge',
+      style: {
+        'width': 3,
+        'line-color': '#ccc',
+        'target-arrow-color': '#ccc',
+        'target-arrow-shape': 'triangle'
+      }
+    }
+];
+
 /*
- * layout options
- */
-
-//places all nodes at (0,0)
-var defaultLayout = {
-    name: 'null',
-
-    ready: function(){}, // on layoutready
-    stop: function(){} // on layoutstop
-};
-
-//places nodes in well-formed grid
-var gridLayout = {
-    name: 'grid',
-  
-    fit: true, // whether to fit the viewport to the graph
-    padding: 30, // padding used on fit
-    boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
-    avoidOverlap: true, // prevents node overlap, may overflow boundingBox if not enough space
-    avoidOverlapPadding: 10, // extra spacing around nodes when avoidOverlap: true
-    nodeDimensionsIncludeLabels: false, // Excludes the label when calculating node bounding boxes for the layout algorithm
-    spacingFactor: undefined, // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
-    condense: false, // uses all available space on false, uses minimal space on true
-    rows: undefined, // force num of rows in the grid
-    cols: undefined, // force num of columns in the grid
-    position: function( node ){}, // returns { row, col } for element
-    sort: undefined, // a sorting function to order the nodes; e.g. function(a, b){ return a.data('weight') - b.data('weight') }
-    animate: false, // whether to transition the node positions
-    animationDuration: 500, // duration of animation in ms if enabled
-    animationEasing: undefined, // easing of animation if enabled
-    animateFilter: function ( node, i ){ return true; }, // a function that determines whether the node should be animated.  All nodes animated by default on animate enabled.  Non-animated nodes are positioned immediately when the layout starts
-    ready: undefined, // callback on layoutready
-    stop: undefined, // callback on layoutstop
-    transform: function (node, position ){ return position; } // transform a given node position. Useful for changing flow direction in discrete layouts 
-  };
-
-//places nodes in circular clusters
-var ciseLayout = {
-    name: 'cise',
-
-    clusters: [ ['n1','n2','n3'],
-                ['n5','n6']
-                ['n7', 'n8', 'n9', 'n10'] ],
-};
-
-/*
- * Request local cytoscape json file using AJAX GET request
+ * XHR to get local cytoscape json file, returned as a promise
  */
 var loadJSON = function(filepath) {
     return new Promise((resolve, reject) => {
@@ -54,8 +54,6 @@ var loadJSON = function(filepath) {
         xobj.open('GET', filepath, true);
         xobj.onreadystatechange = function () {
             if (xobj.readyState == 4 && xobj.status == "200") {
-                // Required use of an anonymous callback as .open will NOT return a value 
-                // but simply returns undefined in asynchronous mode
                 resolve(xobj.responseText);
             }
         };
@@ -64,46 +62,76 @@ var loadJSON = function(filepath) {
 }
 
 $(document).ready(function(){
-    let cy;
 
-    // let loadJsonPromises = [];
-    // loadJsonPromises.push(loadJSON('json/example.json'))
-    // Promise.all(promises).then(function() {
-    //     // returned data is in arguments[0], arguments[1], ... arguments[n]
-    //     // you can process it here
-    // }, function(err) {
-    //     // error occurred
-    // });
+    let loadJsonPromises = [];
+    loadJsonPromises.push(loadJSON('data/example.json'))
+    loadJsonPromises.push(loadJSON('data/exampleStyle.json'))
 
-    loadJSON('json/example.json').then(response => {
+    Promise.all(loadJsonPromises).then(data => {
         // Parse JSON string into cytoscape object
-        let cyjs = JSON.parse(response);
+        let cyjs = JSON.parse(data[0]);
+        let cystyle = JSON.parse(data[1]);
+
 
         cy = cytoscape({
             container: document.getElementById('cy'), // container to render in
             elements: cyjs.elements,
-            style: [ // the stylesheet for the graph
-                {
-                    selector: 'node',
-                    style: {
-                    'background-color': '#666',
-                    'label': 'data(id)'
-                    }
-                },
-                {
-                    selector: 'edge',
-                    style: {
-                    'width': 3,
-                    'line-color': '#ccc',
-                    'target-arrow-color': '#ccc',
-                    'target-arrow-shape': 'triangle'
-                    }
-                }
-            ],
-            layout : defaultLayout
+            style: cystyle.style,
+            layout: {
+                name:'null'
+            }
         });
-    })
-    .catch(error => {
+
+    }).catch(error => {
         console.log(error);
     });
 });
+
+function changeLayout() {
+    let selector = document.getElementById("layout-selector");
+    let layoutName = selector.options[selector.selectedIndex].text;
+    let layout;
+    switch (layoutName) {
+        case "grid":
+            layout = cy.layout({name: 'grid'});
+            break
+        case "circle":
+            layout = cy.layout({name: 'circle'});
+            break
+        case "breadthfirst":
+            layout = cy.layout({name: 'breadthfirst'});
+            break
+        case "cose":
+            layout = cy.layout({name: 'cose'});
+            break
+        case "cola":
+            layout = cy.layout({
+                name: 'cola',
+                avoidOverlap: true
+            });
+            break
+        case "avsdf":
+            layout = cy.layout({name: 'avsdf-base'});
+            break
+        case "cise":
+            var clusters = cy.elements().kMeans({
+                k: 2,
+                attributes: [
+                    function( node ){ return edge.data('weight'); }
+                ]
+            });
+            layout = cy.layout({
+                name: 'cise',
+                clusters: clusters,
+                allowNodesInsideCircle: false
+            })
+        default:
+            layout = cy.layout({
+                name: 'null',
+            
+                ready: function(){},
+                stop: function(){}
+            });
+    }
+    layout.run();
+}

@@ -8,17 +8,49 @@
         <link rel="stylesheet" type="text/css" href="styles/main.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap">
 
-        <!-- cytoscape -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.9.4/cytoscape.min.js"></script>
-        <!-- d3 -->
-        <script src="https://d3js.org/d3-selection.v1.min.js"></script>
         <!-- jquery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Cytoscape -->
+        <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+
+        <!-- Other iVis-at-Bilkent libraries, must be before Cytoscape extensions -->
+		<script src="https://unpkg.com/layout-base/layout-base.js"></script>
+		<script src="https://unpkg.com/avsdf-base/avsdf-base.js"></script>
+		<script src="https://unpkg.com/cose-base/cose-base.js"></script>
+		<script src="https://unpkg.com/cytoscape-graphml/cytoscape-graphml.js"></script>
+		<script src="https://raw.githack.com/iVis-at-Bilkent/cytoscape.js-layvo/unstable/cytoscape-layvo.js"></script>
+
+		<!-- CiSE Bundle -->
+        <script src="https://unpkg.com/cytoscape-cise@1.0.0/cytoscape-cise.js"></script>
+
+        <!-- cola extension -->
+        <script src="https://unpkg.com/webcola/WebCola/cola.min.js"></script>
+        <script src="https://unpkg.com/cytoscape-cola/cytoscape-cola.js"></script>
+
+        <!-- <script src="node_modules/cytoscape-avsdf/cytoscape-avsdf.js"></script> -->
+        
         <!-- pathways visualization-->
         <script src="scripts/pathways.js"></script>
     </head>
     <body>
-        <h1>VIA</h1>
-        <h3>Course Pathways Explorer</h3>
+        <div>
+            <h1>VIA</h1>
+            <h4>Course Pathways Explorer</h4>
+        </div>
+        <div style="margin-bottom: 20px; margin-left: 20px; display: flex; justify-content: center;" class="flex-container">
+            <select id="layout-selector">
+                <option value="default">default</option>
+                <option value="grid">grid</option>
+                <option value="circle">circle</option>
+                <option value="breadthfirst">breadthfirst</option>   
+                <option value="cose">cose</option>                
+                <option value="cola">cola</option>
+                <!-- <option value="cise">cise</option> -->
+                <!-- <option value="avsdf">avsdf</option> -->
+              </select>
+            <button onclick="changeLayout()" id="run-layout-btn">Run Layout</button>
+        </div>
+        
         <div id="cy"></div>
     </body>
