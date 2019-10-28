@@ -1,5 +1,15 @@
 body {
-    background-color: #9EC7F7;
+    background-color: #9EC7F7 !important;
+    font-family: helvetica;
+    font-size: 14px;
+}
+  
+#cy {
+    border: solid;
+    border-width: 1;
+    height: 500px;
+    background-color: white;
+    height: 75vh;
 }
 
 h1, h4 {
@@ -11,17 +21,22 @@ h1, h4 {
 h1 {
     margin-bottom: 0px;
 }
-h3 {
+
+h4 {
     margin-top: 0px;
 }
 
-#cy {
-    background-color: white;
-    width: 80vw;
-    height: 80vh;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
+#loading {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    margin-top: -0.5em;
+    font-size: 2em;
+    color: #fff;
+}
+  
+  #loading.loaded {
+    display: none;
+}

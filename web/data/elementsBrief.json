@@ -1,0 +1,276 @@
+{
+    "elements" : {
+        "nodes" : [ {
+          "data" : {
+            "id" : "22602",
+            "shared_name" : "SPEC201",
+            "p" : 0.013014478607450789,
+            "name" : "SPEC201",
+            "SUID" : 22602,
+            "department" : "SPEC",
+            "selected" : false
+          },
+          "position" : {
+            "x" : -1961.583616858839,
+            "y" : 4349.8742321317595
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22600",
+            "shared_name" : "BIOE141A",
+            "p" : 0.00789002765576704,
+            "name" : "BIOE141A",
+            "SUID" : 22600,
+            "department" : "BIOE",
+            "selected" : false
+          },
+          "position" : {
+            "x" : -2283.871201787059,
+            "y" : -3375.2583018897503
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22599",
+            "shared_name" : "BIOE141B",
+            "p" : 0.00789002765576704,
+            "name" : "BIOE141B",
+            "SUID" : 22599,
+            "department" : "BIOE",
+            "selected" : false
+          },
+          "position" : {
+            "x" : -2304.520910427198,
+            "y" : -3291.479140604746
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22598",
+            "shared_name" : "SURG111A",
+            "p" : 0.007564665690580771,
+            "name" : "SURG111A",
+            "SUID" : 22598,
+            "department" : "SURG",
+            "selected" : false
+          },
+          "position" : {
+            "x" : 947.9404885259382,
+            "y" : 4472.348719270919
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22597",
+            "shared_name" : "SURG111B",
+            "p" : 0.007401984707987636,
+            "name" : "SURG111B",
+            "SUID" : 22597,
+            "department" : "SURG",
+            "selected" : false
+          },
+          "position" : {
+            "x" : 886.7032449563585,
+            "y" : 4578.414736448901
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22596",
+            "shared_name" : "UAR42A",
+            "p" : 0.013014478607450789,
+            "name" : "UAR42A",
+            "SUID" : 22596,
+            "department" : "UAR",
+            "selected" : false
+          },
+          "position" : {
+            "x" : 2830.7832010005577,
+            "y" : 4449.8742321317595
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22595",
+            "shared_name" : "UAR42B",
+            "p" : 0.01268911664226452,
+            "name" : "UAR42B",
+            "SUID" : 22595,
+            "department" : "UAR",
+            "selected" : false
+          },
+          "position" : {
+            "x" : 2680.7832010005577,
+            "y" : 4536.476772510204
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22594",
+            "shared_name" : "CHEM10",
+            "p" : 0.012933138116154222,
+            "name" : "CHEM10",
+            "SUID" : 22594,
+            "department" : "CHEM",
+            "selected" : false
+          },
+          "position" : {
+            "x" : -201.3495635795466,
+            "y" : -3326.4070809151576
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22593",
+            "shared_name" : "CEE181",
+            "p" : 0.005043110460387181,
+            "name" : "CEE181",
+            "SUID" : 22593,
+            "department" : "CEE",
+            "selected" : false
+          },
+          "position" : {
+            "x" : -1059.6071330751306,
+            "y" : -3343.4038313069855
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22592",
+            "shared_name" : "CEE182",
+            "p" : 0.005205791442980316,
+            "name" : "CEE182",
+            "SUID" : 22592,
+            "department" : "CEE",
+            "selected" : false
+          },
+          "position" : {
+            "x" : -1072.4002601144923,
+            "y" : -3270.850402512593
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22591",
+            "shared_name" : "SLE91",
+            "p" : 0.030095981779729948,
+            "name" : "SLE91",
+            "SUID" : 22591,
+            "department" : "SLE",
+            "selected" : false
+          },
+          "position" : {
+            "x" : 2045.235209039206,
+            "y" : 3530.258989861097
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22590",
+            "shared_name" : "SLE92",
+            "p" : 0.02855051244509517,
+            "name" : "SLE92",
+            "SUID" : 22590,
+            "department" : "SLE",
+            "selected" : false
+          },
+          "position" : {
+            "x" : 1895.235209039206,
+            "y" : 3616.861530239541
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22589",
+            "shared_name" : "CS210A",
+            "p" : 0.017000162680982592,
+            "name" : "CS210A",
+            "SUID" : 22589,
+            "department" : "CS",
+            "selected" : false
+          },
+          "position" : {
+            "x" : 304.1363529379141,
+            "y" : -2261.388401813298
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22588",
+            "shared_name" : "CS210B",
+            "p" : 0.01813892955913454,
+            "name" : "CS210B",
+            "SUID" : 22588,
+            "department" : "CS",
+            "selected" : false
+          },
+          "position" : {
+            "x" : 302.64756795542553,
+            "y" : -2225.3928996395352
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22587",
+            "shared_name" : "SURG111C",
+            "p" : 0.006913941760208231,
+            "name" : "SURG111C",
+            "SUID" : 22587,
+            "department" : "SURG",
+            "selected" : false
+          },
+          "position" : {
+            "x" : 764.2287578172,
+            "y" : 4578.414736448901
+          },
+          "selected" : false
+        }, {
+          "data" : {
+            "id" : "22586",
+            "shared_name" : "SPECLANG178B",
+            "p" : 0.011631690255409142,
+            "name" : "SPECLANG178B",
+            "SUID" : 22586,
+            "department" : "SPECLANG",
+            "selected" : false
+          },
+          "position" : {
+            "x" : -1361.583616858839,
+            "y" : 4449.8742321317595
+          },
+          "selected" : false
+        }],
+        "edges" : [ {
+        "data" : {
+            "id" : "32602",
+            "source" : "22591",
+            "target" : "22590",
+            "shared_name" : "SLE91 (interacts with) SLE92",
+            "is_internal" : "external",
+            "shared_interaction" : "interacts with",
+            "name" : "SLE91 (interacts with) SLE92",
+            "interaction" : "interacts with",
+            "weight" : 1.0,
+            "SUID" : 32602,
+            "selected" : false
+        },
+        "selected" : false
+        }, {
+        "data" : {
+            "id" : "32601",
+            "source" : "22589",
+            "target" : "22588",
+            "shared_name" : "CS210A (interacts with) CS210B",
+            "is_internal" : "internal",
+            "shared_interaction" : "interacts with",
+            "name" : "CS210A (interacts with) CS210B",
+            "interaction" : "interacts with",
+            "weight" : 0.9896907216494846,
+            "SUID" : 32601,
+            "selected" : false
+        },
+        "selected" : false
+        }
+    ]}
+}

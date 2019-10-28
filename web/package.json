@@ -1,0 +1,18 @@
+{
+  "name": "via-web",
+  "version": "2.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "cytoscape": "^3.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "via"
+  ],
+  "author": "Ellen Wang",
+  "license": "ISC"
+}

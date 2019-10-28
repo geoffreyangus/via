@@ -4,53 +4,127 @@
         <title>Via 2.0</title>
         <meta charset="utf-8">
         
-        <!-- styles and fonts -->
+        <!-- app styles -->
         <link rel="stylesheet" type="text/css" href="styles/main.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-        <!-- jquery -->
+        <!-- app javascript -->
+        <script src="scripts/pathways.js"></script>
+        <script src="scripts/layout.js"></script>
+        
+        <!-- Jquery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
         <!-- Cytoscape -->
         <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
-
-        <!-- Other iVis-at-Bilkent libraries, must be before Cytoscape extensions -->
+        
+        <!-- Other iVis-at-Bilkent libraries -->
 		<script src="https://unpkg.com/layout-base/layout-base.js"></script>
 		<script src="https://unpkg.com/avsdf-base/avsdf-base.js"></script>
 		<script src="https://unpkg.com/cose-base/cose-base.js"></script>
 		<script src="https://unpkg.com/cytoscape-graphml/cytoscape-graphml.js"></script>
 		<script src="https://raw.githack.com/iVis-at-Bilkent/cytoscape.js-layvo/unstable/cytoscape-layvo.js"></script>
 
-		<!-- CiSE Bundle -->
-        <script src="https://unpkg.com/cytoscape-cise@1.0.0/cytoscape-cise.js"></script>
+		<!-- CiSE Layout -->
+		<script src="scripts/cytoscape-cise.js"></script>
 
-        <!-- cola extension -->
-        <script src="https://unpkg.com/webcola/WebCola/cola.min.js"></script>
-        <script src="https://unpkg.com/cytoscape-cola/cytoscape-cola.js"></script>
+        <!-- Qtip -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.css">
+        <script src="scripts/cytoscape-qtip.js"></script>
 
-        <!-- <script src="node_modules/cytoscape-avsdf/cytoscape-avsdf.js"></script> -->
-        
-        <!-- pathways visualization-->
-        <script src="scripts/pathways.js"></script>
+        <!-- Random color for clusters -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.min.js"></script>
+
     </head>
     <body>
         <div>
             <h1>VIA</h1>
             <h4>Course Pathways Explorer</h4>
         </div>
-        <div style="margin-bottom: 20px; margin-left: 20px; display: flex; justify-content: center;" class="flex-container">
-            <select id="layout-selector">
-                <option value="default">default</option>
-                <option value="grid">grid</option>
-                <option value="circle">circle</option>
-                <option value="breadthfirst">breadthfirst</option>   
-                <option value="cose">cose</option>                
-                <option value="cola">cola</option>
-                <!-- <option value="cise">cise</option> -->
-                <!-- <option value="avsdf">avsdf</option> -->
-              </select>
-            <button onclick="changeLayout()" id="run-layout-btn">Run Layout</button>
-        </div>
+
+        <!-- <div id="cy"></div>
+        <div id="loading" class="loaded">
+            <span class="fa fa-refresh fa-spin"></span>
+        </div> -->
+
+        <!-- container-fluid : start -->
+        <div class="container-fluid">
+            <row>
+                <div class="col-md-8 col-sm-8 col-lg-8">
+                    <!-- graph : start -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Graph</div>
+                        <div class="panel-body">
+                        <div id="cy"></div>
+                        </div>
+                    </div>
+                    <!-- graph : end -->
+                </div>
         
-        <div id="cy"></div>
+                <div class="col-md-4 col-sm-4 col-lg-4">
+                    <!-- editor : start -->
+                    <div class="editor">
+
+                        <!-- View tools : start -->  
+                        <div id="layout-tools" class="panel panel-primary">
+                            <div class="panel-heading">View Tools</div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="layout-selector">Choose Layout</label>
+                                    <select class="form-control" id="layout-selector">
+                                        <option value="cise">cise</option>
+                                        <option value="grid">grid</option>
+                                        <option value="circle">circle</option>
+                                        <option value="concentric">concentric</option>
+                                        <option value="cose">cose</option>   
+                                        <option value="breadthfirst">breadthfirst</option>    
+                                        <option value="random">random</option>
+                                    </select>
+                                </div>
+                                <button onclick="changeLayout()" id="run-layout-btn" class="btn btn-success btn-block">Run</button>
+                            </div>
+                        </div>
+                        <!-- View tools : start -->
+
+                        <!-- Filter tools : start -->
+                        <div id="filter-tools" class="panel panel-primary panel-hide">
+                            <div class="panel-heading">Filter Tools</div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <!-- <label for="filter-selector">Filter on</label> -->
+                                    <!-- <select class="form-control" id="filter-selector">
+                                        <option value="department">department</option>
+                                        <option value="node probability">node probability</option>
+                                        <option value="edge weight">edge weight</option>
+                                    </select> -->
+                                    <div id="department-filter-div">
+                                        <label>On department Name:</label>
+                                        <input type="text" class="form-control" id="department-name-field" placeholder="eg. ENGR">
+                                    </div>
+                                    <!-- </div>
+                                        <label>Node probability range: </label>
+                                        <p>[</p>
+                                        <input type="number" class="col-xs-2" placeholder="0">
+                                        <p>,</p>
+                                        <input type="number" class="col-xs-2" placeholder="1">
+                                        <p>]</p>
+                                    </div> -->
+                                </div>
+                                
+                                <button onclick="filter()" id="filter-btn" class="btn btn-success btn-block">Filter</button>
+                                <button onclick="clearFilters()" id="filter-btn" class="btn btn-primary btn-block">Clear All</button>
+                            </div>
+                            </div>
+                        <!-- Filter tools : end -->
+            
+                    </div>
+                    <!-- editor : end -->
+                </div>
+            </row>
+        </div>
+        <!-- container-fluid : end -->
     </body>
+</html>
