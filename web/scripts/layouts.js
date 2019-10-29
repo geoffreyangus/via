@@ -1,36 +1,30 @@
-function runCircleLayout() {
+function getCircleLayout() {
     let layout = cy.layout({name: 'circle'});
-    layout.run();
     return layout;
 }
 
-function runGridLayout() {
+function getGridLayout() {
     let layout = cy.layout({name: 'grid'});
-    layout.run();
     return layout;
 }
 
-function runConcentricLayout() {
+function getConcentricLayout() {
     let layout = cy.layout({name: 'concentric'});
-    layout.run();
     return layout;
 }
 
 function getCoseLayout() {
     let layout = cy.layout({name: 'cose', animate: false});
-    layout.run();
     return layout;
 }
 
 function getBreadthfirstLayout() {
     let layout = cy.layout({name: 'breadthfirst'});
-    layout.run();
     return layout;
 }
 
 function getRandomLayout() {
     let layout = cy.layout({name: 'random'});
-    layout.run();
     return layout;
 }
 
@@ -101,13 +95,56 @@ function getCiseLayout() {
             // loading.classList.add('loaded');
         }
     });
-    layout.run();
     return layout;
 }
 
-function getDepartmentsClusterLayout() {
+function runDepartmentsClusterLayout(version) {
+    switch(version) {
+        case 'uniform':
+            return uniform();
+        case 'overlap':
+            return overlap();
+        case 'grid':
+            return grid();
+        default:
+            return grid();
+    }
+}
+
+function uniform() {
     let lastLayout;
     let boundingBoxes = getBoundingBoxes1();
+    for (let i = 0; i < window.numDepartments; i++) {
+        let dept = window.departments[i];
+        lastLayout = getChildNodesInDepartment(dept).layout(
+            {name: 'circle',
+            fit: false,
+            boundingBox: boundingBoxes[i],
+            padding: 1000, 
+            avoidOverlap: false});
+        lastLayout.run();
+    }
+    return lastLayout;
+}
+
+function overlap() {
+    let lastLayout;
+    let boundingBoxes = getBoundingBoxes3();
+    for (let i = 0; i < window.numDepartments; i++) {
+        let dept = window.departments[i];
+        lastLayout = getChildNodesInDepartment(dept).layout(
+            {name: 'circle',
+            fit: false,
+            boundingBox: boundingBoxes[i],
+            padding: 1000});
+        lastLayout.run();
+    }
+    return lastLayout;
+}
+
+function grid() {
+    let lastLayout;
+    let boundingBoxes = getBoundingBoxes2();
     for (let i = 0; i < window.numDepartments; i++) {
         let dept = window.departments[i];
         lastLayout = getChildNodesInDepartment(dept).layout(

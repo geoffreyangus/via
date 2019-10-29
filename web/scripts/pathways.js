@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function(){
     // loadJsonPromises.push(loadJSON('data/elementsBrief.json'));
     loadJsonPromises.push(loadJSON('data/elementsFull.json'));
     // loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
-    loadJsonPromises.push(loadJSON('data/exampleStyle.json'));
+    // loadJsonPromises.push(loadJSON('data/exampleStyle.json'));
 
     Promise.all(loadJsonPromises).then(data => {
         // Parse JSON string into cytoscape fields
@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 addQTip();
                 runInitialLayout();
                 cy.boxSelectionEnabled(true);
+                // showGrid();
             }).catch(error => {
                 console.log(error);
             });
@@ -63,11 +64,9 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 function runInitialLayout() {
-    let layout = getDepartmentsClusterLayout();
+    let layout = runDepartmentsClusterLayout(null);
     layout.run();
-    layout.pon('layoutready').then(() => {
-        cy.fit();
-    });
+    cy.fit();
 }
 
 function changeLayout() {
@@ -76,39 +75,49 @@ function changeLayout() {
     let layout;
     switch (layoutName) {
         case "clusters - uniform size":
-            layout = runDepartmentsClusterLayout1();
+            layout = runDepartmentsClusterLayout('uniform');
+            break
+        case "clusters - grid":
+            layout = runDepartmentsClusterLayout('grid');
+            break
+        case "clusters - overlap":
+            layout = runDepartmentsClusterLayout('overlap');
+            break
         case "cise":
-            layout = runCiseLayout();
+            layout = getCiseLayout();
             break
         case "grid":
-            layout = runGridLayout();
+            layout = getGridLayout();
             break
         case "circle":
-            layout = runCircleLayout();
+            layout = getCircleLayout();
             break
         case "concentric":
-            layout = runConcentricLayout();
+            layout = getConcentricLayout();
             break
         case "cose":
-            layout = runCoseLayout();
+            layout = getCoseLayout();
             break
         case "breadthfirst":
-            layout = runBreadthfirstLayout();
+            layout = getBreadthfirstLayout();
             break
         case "random":
-            layout = runRandomLayout();
+            layout = getRandomLayout();
             break
         default:
-            layout = runDepartmentsClusterLayout();
+            layout = runDepartmentsClusterLayout(null);
     }
-
     layout.pon('layoutstart').then(() => {
-        $loading.show();
+        // $loading.show();
     });
+
+    layout.run();
     
-    layout.pon('layoutready').then(() => {
+    layout.pon('layoutstop').then(() => {
         cy.fit();
     })
+
+    cy.fit();
 }
 
 var elesRemovedByFilter = null;

@@ -18,6 +18,7 @@
         <script src="scripts/layouts.js"></script>
         <script src="scripts/nodes.js"></script>
         <script src="scripts/edges.js"></script>
+        <script src="scripts/graph-display.js"></script>
         
         <!-- Jquery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -42,6 +43,9 @@
 
         <!-- Random color for clusters -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.min.js"></script>
+
+        <!-- Grid guide extension -->
+        <script src="scripts/cytoscape-grid-guide.js"></script>
 
     </head>
     <body>
@@ -80,7 +84,9 @@
                                 <div class="form-group">
                                     <label for="layout-selector">Choose Layout</label>
                                     <select class="form-control" id="layout-selector">
+                                        <option value="clusters - grid">clusters - grid</option>
                                         <option value="clusters - uniform size">clusters - uniform size</option>
+                                        <option value="clusters - overlap">clusters - overlap</option>
                                         <option value="cise">cise</option>
                                         <option value="grid">grid</option>
                                         <option value="circle">circle</option>

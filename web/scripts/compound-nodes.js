@@ -37,7 +37,7 @@ function getChildNodesInDepartment(dept) {
 function getBoundingBoxes1() {
     let rect = document.getElementById('cy').getBoundingClientRect();
     // console.log(rect.top, rect.right, rect.bottom, rect.left);
-    let nCols = 5;
+    let nCols = 6;
     let box_width = cy.width() / nCols;
     let boundsMultiplier = box_width / window.maxClusterSize;
     let nRows = window.numDepartments / nCols;
@@ -52,6 +52,58 @@ function getBoundingBoxes1() {
             boxes.push({
                 x1: rect.left + x * box_width, 
                 y1: rect.top + y * box_width,
+                w: box_width,
+                h: box_width
+            });
+        }
+    }
+    return boxes;
+}
+
+function getBoundingBoxes3() {
+    let rect = document.getElementById('cy').getBoundingClientRect();
+    // console.log(rect.top, rect.right, rect.bottom, rect.left);
+    let nCols = 10;
+    let box_width = cy.width() * 2/ nCols;
+    let boundsMultiplier = box_width / window.maxClusterSize;
+    let nRows = window.numDepartments / nCols;
+    if (window.numDepartments % nCols != 0) {
+        nRows += 1;
+    }
+
+    let boxes = [];
+    
+    for (let y = 0; y < nRows; y++) {
+        for (let x = 0; x < nCols; x++) {
+            boxes.push({
+                x1: rect.left + x * box_width, 
+                y1: rect.top + y * box_width,
+                w: box_width,
+                h: box_width
+            });
+        }
+    }
+    return boxes;
+}
+
+function getBoundingBoxes2() {
+    let rect = document.getElementById('cy').getBoundingClientRect();
+    // console.log(rect.top, rect.right, rect.bottom, rect.left);
+    let nCols = Math.ceil(Math.sqrt(window.numDepartments));
+    let box_width = cy.width() * 10 / nCols;
+    let boundsMultiplier = box_width / window.maxClusterSize;
+    let nRows = window.numDepartments / nCols;
+    if (window.numDepartments % nCols != 0) {
+        nRows += 1;
+    }
+
+    let boxes = [];
+    
+    for (let y = 0; y < nRows; y++) {
+        for (let x = 0; x < nCols; x++) {
+            boxes.push({
+                x1: rect.left + 2* x * box_width, 
+                y1: rect.top + 2* y * box_width,
                 w: box_width,
                 h: box_width
             });
