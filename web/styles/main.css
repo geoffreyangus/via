@@ -12,6 +12,10 @@ body {
     height: 75vh;
 }
 
+br {
+    line-height: 10px;
+ }
+
 h1, h4 {
     font-family: 'Roboto', sans-serif;
     text-align: center;

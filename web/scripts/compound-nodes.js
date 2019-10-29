@@ -1,23 +1,22 @@
-
-
-function setUpCompoundNodes(callback) {
-    for (let i = 0; i < window.departments.length; i++) {
-        let dept = window.departments[i];
-        let p_id = '!special_' + i;
-        // add new parent node for department
-        cy.add({
-            group : "nodes",
-            data: {
-                id: p_id,
-                name: "compound_" + dept,
-                p: 0,
-                department: dept,
-            }
-        });
-        cy.nodes('[department=\"' + dept + '\"]').move({parent: p_id});
-    }
-
-    callback();
+function setUpCompoundNodes() {
+    return new Promise((resolve, reject) => {
+        for (let i = 0; i < window.departments.length; i++) {
+            let dept = window.departments[i];
+            let p_id = '!special_' + i;
+            // add new parent node for department
+            cy.add({
+                group : "nodes",
+                data: {
+                    id: p_id,
+                    name: "compound_" + dept,
+                    p: 0,
+                    department: dept,
+                }
+            });
+            cy.nodes('[department=\"' + dept + '\"]').move({parent: p_id});
+        }
+        resolve();
+    })
 }
 
 function getChildren() {
@@ -35,12 +34,11 @@ function getChildNodesInDepartment(dept) {
     return deptChildren
 }
 
-function getBoundingBoxes() {
+function getBoundingBoxes1() {
     let rect = document.getElementById('cy').getBoundingClientRect();
     // console.log(rect.top, rect.right, rect.bottom, rect.left);
     let nCols = 5;
     let box_width = cy.width() / nCols;
-    // computeClusterSizeData();
     let boundsMultiplier = box_width / window.maxClusterSize;
     let nRows = window.numDepartments / nCols;
     if (window.numDepartments % nCols != 0) {
@@ -60,19 +58,4 @@ function getBoundingBoxes() {
         }
     }
     return boxes;
-}
-
-function getRangeForNodeSize() {
-
-}
-
-function computeClusterSizeData() {
-    window.departmentsClusterSizes = new Object();
-    let maxSize = 0;
-    for (let i = 0; i < window.numDepartments; i++) {
-        let dept = window.departments[i];
-        window.departmentsClusterSizes[dept] = getClusterSize(dept);
-        maxSize = max(maxSize, window.departmentsClusterSizes[dept]);
-    }
-    window.maxClusterSize = maxSize;
 }
