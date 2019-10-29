@@ -6,7 +6,6 @@
             {"data":{"id":"g","name":"CS107","p":0.5,"department":"CS"}},
             {"data":{"id":"c","name":"ENGR40A","p":0.7,"department":"ENGR"}},
             {"data":{"id":"d","name":"ENGR40M","p":0.4,"department":"ENGR"}},
-            {"data":{"id":"e","name":"COMM102","p":0.2,"department":"COMM"}},
             {"data":{"id":"f","name":"CME100","p":0.7,"department":"CME"}}
         ],
         "edges": [
@@ -14,8 +13,6 @@
             {"data":{"id":"cd","source":"c","target":"d","weight":1}},
             {"data":{"id":"ac","source":"a","target":"c","weight":0.9}},
             {"data":{"id":"df","source":"d","target":"f","weight":0.4}},
-            {"data":{"id":"fe","source":"f","target":"e","weight":0.6}},
-            {"data":{"id":"ae","source":"a","target":"e","weight":0.05}},
             {"data":{"id":"cf","source":"c","target":"f","weight":0.16}},
             {"data":{"id":"bf","source":"b","target":"f","weight":0.5}},
             {"data":{"id":"bg","source":"b","target":"g","weight":0.9}}

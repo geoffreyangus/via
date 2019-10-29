@@ -20,13 +20,17 @@ document.addEventListener('DOMContentLoaded', function(){
 
     let loadJsonPromises = [];
     // loadJsonPromises.push(loadJSON('data/elementsBrief.json'));
-    // loadJsonPromises.push(loadJSON('data/elementsFull.json'));
-    loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
+    loadJsonPromises.push(loadJSON('data/elementsFull.json'));
+    // loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
     loadJsonPromises.push(loadJSON('data/exampleStyle.json'));
 
     Promise.all(loadJsonPromises).then(data => {
         // Parse JSON string into cytoscape object
         var cyElements = JSON.parse(data[0]).elements;
+        cyElements.nodes.forEach(element => {
+            element.data.parent = null; //add parent attribute for compound node creation
+        });
+        console.log(cyElements);
         let cyStyle = JSON.parse(data[1]);
 
         var cy = window.cy = cytoscape({
@@ -35,6 +39,8 @@ document.addEventListener('DOMContentLoaded', function(){
         });
 
         cy.ready(function() {
+            cy.remove('node[name = \"<END>\"][name = \"<BEGIN>\"]');
+            setUplayoutConstants();
             runInitialLayout();
             // addQTip();
         });
@@ -128,6 +134,7 @@ function runInitialLayout() {
             return ele.data('department');
         })
     ));
+    window.numDepartments = window.departments.length;
 
     for (let i = 0; i < departments.length; i++) {
         window.departmentsClusterMap[window.departments[i]] =  i;
@@ -136,7 +143,7 @@ function runInitialLayout() {
 
     /* set initial node and edge styles */
 
-    cy.style().selector('node').style({
+    cy.style().selector(':child').style({
         'background-color': function (ele) {
             return window.departmentsClusterColors[ele.data('department')];
         },
@@ -159,6 +166,13 @@ function runInitialLayout() {
         'font-size': '8pt',
         'text-halign': 'center',
         'text-valign': 'center'
+    }).update();
+
+    /* hide visibility of parent nodes --
+     * -- note using the visibility attribute hides the entire compound node, including children nodes */
+    cy.style().selector(':parent').style({
+        'background-opacity' : 0,
+        'border-width': 0
     }).update();
 
     cy.style().selector('edge').style({
@@ -191,20 +205,34 @@ function runInitialLayout() {
         'target-arrow-shape': 'triangle'
     }).update();
 
-    setUpCompoundNodes(function() {
-        let layout = getCiseLayout();
-        layout.run();
-        addQTip();
-    })
+    // let layout = getParents().layout({
+    //     name:'cose', 
+    //     animate: false,
+    //     fit: false
+    // });
+    // layout.run();
 
+    // console.log(window.departments.length);
+
+    let boundingBoxes = getBoundingBoxes();
+    for (let i = 0; i < window.numDepartments; i++) {
+        let dept = window.departments[i];
+        getChildNodesInDepartment(dept).layout({name: 'circle', fit:false, boundingBox: boundingBoxes[i], padding: 1000, avoidOverlap: false}).run();
+    }
+    setUpCompoundNodes(function() {
+        
+        addQTip();
+        cy.fit()
+    })
     // layout.pon('layoutstart').then(function( event ){
     //     $loading.show();
     //   });
+    
 }
 
 function addQTip() {
-    cy.nodes().qtip({
-        content: function(){ return 'Node probability: ' + this.data('p') + '\nParent: ' + this.data('parent')},
+    getChildren().qtip({
+        content: function(){ return 'Node probability: ' + this.data('p') + '\n Parent: ' + this.parent().data('name')},
         position: {
             my: 'top center',
             at: 'bottom center'
@@ -277,7 +305,7 @@ function filter() {
     let dept = field.value;
     nodesRemoved = cy.nodes().filter(function (ele) {
         return ele.data('department') != dept;
-    })
+    });
 
     elesRemovedByFilter = nodesRemoved.remove();
 }
