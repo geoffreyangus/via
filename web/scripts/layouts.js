@@ -144,16 +144,26 @@ function overlap() {
 
 function grid() {
     let lastLayout;
-    let boundingBoxes = getBoundingBoxes2();
-    for (let i = 0; i < window.numDepartments; i++) {
-        let dept = window.departments[i];
-        lastLayout = getChildNodesInDepartment(dept).layout(
-            {name: 'circle',
+    window.departments.forEach(dept => {
+        box = window.departmentToBoundingBoxesMap[dept];
+        lastLayout = getChildNodesInDepartment(dept).layout({
+            name: 'circle',
             fit: false,
-            boundingBox: boundingBoxes[i],
-            padding: 1000, 
-            avoidOverlap: false});
+            boundingBox: {x1:box.xValue, y1:box.yValue, w:box.width, h: box.width},
+            avoidOverlap: true
+        })
         lastLayout.run();
-    }
+    });
     return lastLayout;
+    // for (let i = 0; i < window.numDepartments; i++) {
+    //     let dept = window.departments[i];
+    //     lastLayout = getChildNodesInDepartment(dept).layout(
+    //         {name: 'circle',
+    //         fit: false,
+    //         boundingBox: boundingBoxes[i],
+    //         padding: 1000, 
+    //         avoidOverlap: false});
+    //     lastLayout.run();
+    // }
+    // return lastLayout;
 }

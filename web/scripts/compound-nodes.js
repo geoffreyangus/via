@@ -111,3 +111,48 @@ function getBoundingBoxes2() {
     }
     return boxes;
 }
+
+function getEstimatedClusterWidth(dept) {
+    let epsilon = 0.5;
+    let circumference = window.departmentsClusterSizes[dept] * window.maxNodeWidth;
+    let diameter = Math.max(window.maxNodeWidth, circumference / Math.PI); //account for cases where cluster has one node
+    return (1+epsilon) * diameter;
+}
+
+function getClustersAndWidths() {
+    let clustersAndWidths = []
+    window.departments.forEach(dept => {
+        clustersAndWidths.push({department: dept, width: getEstimatedClusterWidth(dept)});
+    });
+    return clustersAndWidths;
+}
+
+function computeBoundingBoxesForClusters() {
+    let marginEpsilon = 0.2;
+    window.departmentToBoundingBoxesMap = new Object();
+    let nCols = Math.ceil(Math.sqrt(window.numDepartments));
+    let i = 0;
+    let x = 0;
+    let y = 0;
+    let clustersAndWidths = getClustersAndWidths();
+    while (i < window.numDepartments) {
+        let currentRow = clustersAndWidths.slice(i, i+nCols);
+        let maxBoxWidthInRow = currentRow.sort(function(elem1, elem2) { 
+            return elem1.width - elem2.width; 
+        })[currentRow.length-1].width;
+        let margin = marginEpsilon * maxBoxWidthInRow;
+        currentRow.forEach(cluster => {
+            let boundingBox = {
+                xValue: x,
+                yValue: y,
+                width: cluster.width
+            };
+            window.departmentToBoundingBoxesMap[cluster.department] = boundingBox;
+            
+            x += margin + cluster.width;
+        });
+        x = 0; //reset to left
+        y += margin + maxBoxWidthInRow; //last (aka max) estimated cluster width in this row
+        i += nCols;
+    }
+}

@@ -16,6 +16,7 @@ var loadJSON = function(filepath) {
 }
 
 document.addEventListener('DOMContentLoaded', function(){
+    setUpNodeConstants();
     var loading = document.getElementById('loading');
 
     let loadJsonPromises = [];
@@ -39,13 +40,18 @@ document.addEventListener('DOMContentLoaded', function(){
             elements: cyElements
         });
 
-        cy.ready(function() {
-            //temporary to remove extraneous nodes from elementsFull.json
-            cy.remove('node[name = \"<END>\"][name = \"<BEGIN>\"]');
+        //temporary to remove extraneous <BEGIN> and <END> nodes from elementsFull.json
+        cy.remove('#22601');
+        cy.remove('#21938');
 
-            setUpClusterConstants().then(response => {
+        cy.ready(function() {
+            
+            setUpClusterConstants()
+            .then(response => {
+                computeBoundingBoxesForClusters();
                 return setUpCompoundNodes();
-            }).then(response => {
+            })
+            .then(response => {
                 styleNodesByCluster();
                 styleEdges();
                 addQTip();
