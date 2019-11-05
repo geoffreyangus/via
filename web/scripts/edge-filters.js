@@ -101,7 +101,7 @@ function setupRightClickToolbar() {
                 tooltipText: 'select all nodes in department',
                 selector: 'node',
                 onClickFunction: function (event) {
-                    getNodesInDepartment(event.target.data('dept')).select();
+                    getNodesInDepartment(event.target.data('department')).select();
                 },
                 hasTrailingDivider: true
             },
