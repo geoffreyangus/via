@@ -71,18 +71,30 @@ function styleNodesByCluster() {
 //     });
 // }
 
-function listenSelection() {
-    cy.$('node').on('grab', function (e) {
-        var ele = e.target;
-        ele.addClass('highlighted');
-    });
+// function listenSelection() {
+//     cy.$('node').on('grab', function (e) {
+//         var ele = e.target;
+//         ele.addClass('highlighted');
+//     });
     
-    cy.$('node').on('free', function (e) {
-        var ele = e.target;
-        ele.removeClass('highlighted');
-    });
+//     cy.$('node').on('free', function (e) {
+//         var ele = e.target;
+//         ele.removeClass('highlighted');
+//     });
 
-    cy.on('boxselect', 'node', function() {
+//     cy.on('boxselect', 'node', function() {
+//         cy.nodes(':selected').addClass('highlighted');
+//     })
+// }
+
+function listenSelection() {
+    cy.nodes().on('select', function() {
+        cy.nodes(':selected').addClass('highlighted');
+    })
+
+    cy.nodes().on('unselect', function(ele) {
+        cy.nodes().removeClass('highlighted')
         cy.nodes(':selected').addClass('highlighted');
     })
 }
+

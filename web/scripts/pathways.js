@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
     let loadJsonPromises = [];
     // loadJsonPromises.push(loadJSON('data/elementsBrief.json'));
-    loadJsonPromises.push(loadJSON('data/elementsFull.json'));
-    // loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
+    // loadJsonPromises.push(loadJSON('data/elementsFull.json'));
+    loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
     loadJsonPromises.push(loadJSON('data/cyStyle.json'));
 
     Promise.all(loadJsonPromises).then(data => {
@@ -125,8 +125,6 @@ function changeLayout() {
 
     cy.fit();
 }
-
-
 
 function addCyEventListeners() {
     listenSelection();
