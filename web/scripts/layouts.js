@@ -146,7 +146,7 @@ function grid() {
     let lastLayout;
     window.departments.forEach(dept => {
         box = window.departmentToBoundingBoxesMap[dept];
-        lastLayout = getChildNodesInDepartment(dept).layout({
+        lastLayout = getNodesInDepartment(dept).layout({
             name: 'circle',
             fit: false,
             boundingBox: {x1:box.xValue, y1:box.yValue, w:box.width, h: box.width},
@@ -155,15 +155,4 @@ function grid() {
         lastLayout.run();
     });
     return lastLayout;
-    // for (let i = 0; i < window.numDepartments; i++) {
-    //     let dept = window.departments[i];
-    //     lastLayout = getChildNodesInDepartment(dept).layout(
-    //         {name: 'circle',
-    //         fit: false,
-    //         boundingBox: boundingBoxes[i],
-    //         padding: 1000, 
-    //         avoidOverlap: false});
-    //     lastLayout.run();
-    // }
-    // return lastLayout;
 }

@@ -41,6 +41,16 @@ h4 {
     color: #fff;
 }
   
-  #loading.loaded {
+#loading.loaded {
     display: none;
+}
+
+#department-filter-div {
+    display: block;
+    flex-direction: column;
+}
+
+div.bootstrap-tagsinput {
+    display: block;
+    width: 100%;
 }

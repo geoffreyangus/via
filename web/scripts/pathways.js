@@ -23,21 +23,22 @@ document.addEventListener('DOMContentLoaded', function(){
     // loadJsonPromises.push(loadJSON('data/elementsBrief.json'));
     loadJsonPromises.push(loadJSON('data/elementsFull.json'));
     // loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
-    // loadJsonPromises.push(loadJSON('data/exampleStyle.json'));
+    loadJsonPromises.push(loadJSON('data/cyStyle.json'));
 
     Promise.all(loadJsonPromises).then(data => {
         // Parse JSON string into cytoscape fields
         let cyElements = JSON.parse(data[0]).elements;
-        // let cyStyle = JSON.parse(data[1]).style;
+        let cyStyle = JSON.parse(data[1]).style;
 
         //add parent attribute for compound node creation
-        cyElements.nodes.forEach(element => {
-            element.data.parent = null; 
-        });
+        // cyElements.nodes.forEach(element => {
+        //     element.data.parent = null; 
+        // });
 
         var cy = window.cy = cytoscape({
             container: document.getElementById('cy'), // container to render in
-            elements: cyElements
+            elements: cyElements,
+            style: cyStyle
         });
 
         //temporary to remove extraneous <BEGIN> and <END> nodes from elementsFull.json
@@ -45,16 +46,16 @@ document.addEventListener('DOMContentLoaded', function(){
         cy.remove('#21938');
 
         cy.ready(function() {
-            
-            setUpClusterConstants()
-            .then(response => {
+            setUpCyConstants().then(() => {
+                setupRightClickToolbar();
+                addCyEventListeners();
+                setDepartmentTagsTypeahead();
                 computeBoundingBoxesForClusters();
-                return setUpCompoundNodes();
-            })
-            .then(response => {
                 styleNodesByCluster();
                 styleEdges();
                 addQTip();
+            })
+            .then(() => {
                 runInitialLayout();
                 cy.boxSelectionEnabled(true);
                 // showGrid();
@@ -70,8 +71,7 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 function runInitialLayout() {
-    let layout = runDepartmentsClusterLayout(null);
-    layout.run();
+    let layout = runDepartmentsClusterLayout('grid');
     cy.fit();
 }
 
@@ -126,20 +126,16 @@ function changeLayout() {
     cy.fit();
 }
 
-var elesRemovedByFilter = null;
-function filter() {
-    let field = document.getElementById("department-name-field");
-    let dept = field.value;
-    nodesRemoved = cy.nodes().filter(function (ele) {
-        return ele.data('department') != dept;
-    });
 
-    elesRemovedByFilter = nodesRemoved.remove();
+
+function addCyEventListeners() {
+    listenSelection();
 }
 
-function clearFilters() {
-    if (elesRemovedByFilter != null) {
-        elesRemovedByFilter.restore();
-        elesRemovedByFilter = null;
-    }
+function setUpCyConstants() {
+    return new Promise((resolve, reject) => {
+        setUpFilterConstants();
+        setUpClusterConstants();
+        resolve();
+    })
 }

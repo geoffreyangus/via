@@ -27,9 +27,9 @@ function getParents() {
     return cy.nodes(':parent');
 }
 
-function getChildNodesInDepartment(dept) {
+function getNodesInDepartment(dept) {
     let deptChildren = cy.nodes().filter(function (ele) {
-        return ele.data('department') === dept && !ele.isParent();
+        return ele.data('department') === dept;
     });
     return deptChildren
 }

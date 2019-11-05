@@ -1,0 +1,8 @@
+{
+    "style" : [ {
+        "selector" : "core",
+        "css" : {
+            "selection-box-border-color" : "blue"
+        }
+    }]
+}

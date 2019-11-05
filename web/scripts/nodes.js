@@ -1,8 +1,9 @@
 function setUpNodeConstants() {
     window.maxNodeWidth = 50;
+    // window.selectedNodes = cy.collection();
 }
 function styleNodesByCluster() {
-    cy.style().selector(':child').style({
+    cy.style().selector('node').style({
         'background-color': function (ele) {
             return window.departmentsClusterColors[ele.data('department')];
         },
@@ -27,10 +28,61 @@ function styleNodesByCluster() {
         'text-valign': 'center'
     }).update();
 
+    cy.style().selector('node.highlighted').style({
+        'border-color': 'red'
+    }).update();
+
     /* hide visibility of parent nodes --
      * -- note that using the visibility attribute would hide the entire compound node, including children nodes */
-    cy.style().selector(':parent').style({
-        'background-opacity' : 0,
-        'border-width': 0
-    }).update();
+    // cy.style().selector(':parent').style({
+    //     'background-opacity' : 0,
+    //     'border-width': 0
+    // }).update();
+}
+
+// function listenBoxSelection() {
+//     cy.on('box', 'node', function(event) {
+//        selectNodes(cy.nodes(':selected'));
+//     });
+//     cy.on('tap', function(event){
+//         let target = event.target;
+//         if (target === cy) clearSelectedNodes();
+//     });
+//     cy.on('tap', 'node', function(evt){
+//         let node = evt.target;
+//         clearSelectedNodes();
+//         selectNodes(node);
+//     });
+// }
+
+// function clearSelectedNodes() {
+//     window.selectedNodes.forEach(node => {
+//         node.style({
+//             'border-color':'black'
+//         })
+//     });
+//     window.selectedNodes = cy.collection();
+// }
+
+// function selectNodes(eles) {
+//     window.selectedNodes = eles;
+//     window.selectedNodes.style({
+//         'border-color': 'yellow'
+//     });
+// }
+
+function listenSelection() {
+    cy.$('node').on('grab', function (e) {
+        var ele = e.target;
+        ele.addClass('highlighted');
+    });
+    
+    cy.$('node').on('free', function (e) {
+        var ele = e.target;
+        ele.removeClass('highlighted');
+    });
+
+    cy.on('boxselect', 'node', function() {
+        cy.nodes(':selected').addClass('highlighted');
+    })
 }

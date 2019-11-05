@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
 
         <!-- app javascript -->
         <script src="scripts/pathways.js"></script>
@@ -19,6 +20,8 @@
         <script src="scripts/nodes.js"></script>
         <script src="scripts/edges.js"></script>
         <script src="scripts/graph-display.js"></script>
+        <script src="scripts/node-filters.js"></script>
+        <script src="scripts/edge-filters.js"></script>
         
         <!-- Jquery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -47,6 +50,12 @@
         <!-- Grid guide extension -->
         <script src="scripts/cytoscape-grid-guide.js"></script>
 
+        <!-- For autofill on input tags -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
+
+        <!-- Right click toolbar -->
+        <script src="scripts/cytoscape-context-menus.js"></script>
+        <link href="styles/cytoscape-context-menus.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div>
@@ -113,8 +122,9 @@
                                         <option value="edge weight">edge weight</option>
                                     </select> -->
                                     <div id="department-filter-div">
-                                        <label>On department Name:</label>
-                                        <input type="text" class="form-control" id="department-name-field" placeholder="eg. ENGR">
+                                        <label style="display:block;">Remove departments by name:</label>
+                                        <select multiple type="text" data-role="tagsinput" class="form-control" style="display:block; width:100%" id="department-names-field" placeholder="eg. ENGR">
+                                        </select>
                                     </div>
                                     <!-- </div>
                                         <label>Node probability range: </label>
