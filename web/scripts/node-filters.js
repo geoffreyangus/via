@@ -4,7 +4,7 @@ function setUpFilterConstants() {
     
 }
 
-function filter() {
+function removeDepartments() {
     window.nodesRemovedByDepartmentFilter.restore();
     let depts = $("#department-names-field").val();
     if (depts) {
@@ -14,7 +14,7 @@ function filter() {
     }
 }
 
-function clearFilters() {
+function resetDepartmentFilter() {
     window.nodesRemovedByDepartmentFilter.restore();
     window.nodesRemovedByDepartmentFilter = cy.collection();
     $("#department-names-field").tagsinput('removeAll');
@@ -27,3 +27,4 @@ function setDepartmentTagsTypeahead() {
         }
     });
 }
+

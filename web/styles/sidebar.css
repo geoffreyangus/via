@@ -1,0 +1,38 @@
+body {
+    overflow-x: hidden;
+  }
+
+#sidebar-wrapper {
+    height: 100vh;
+  }
+  
+  #sidebar-wrapper .sidebar-heading {
+    padding-left: 2rem;
+    font-size: 10pt;
+  }
+  
+  #sidebar-wrapper .list-group {
+    width: 25rem;
+  }
+  
+  /* Closed submenu icon */
+  #sidebar-wrapper .list-group .list-group-item[aria-expanded="false"] .submenu-icon::after {
+    content: " \f0d7";
+    font-family: FontAwesome;
+    display: inline;
+    text-align: right;
+    padding-left: 10px;
+  }
+
+  /* Opened submenu icon */
+  #sidebar-wrapper .list-group .list-group-item[aria-expanded="true"] .submenu-icon::after {
+    content: " \f0da";
+    font-family: FontAwesome;
+    display: inline;
+    text-align: right;
+    padding-left: 10px;
+  }
+
+  .sidebar-submenu {
+    padding: 0.5rem;
+  }  

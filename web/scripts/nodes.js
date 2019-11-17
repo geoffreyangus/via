@@ -10,7 +10,7 @@ function styleNodesByCluster() {
         'background-opacity': function (ele) {
             return 1;//ele.data('p')*10;
         },
-        'border-width': 3,
+        'border-width': 2,
         'border-color': 'black',
         'width': function (ele) {
             return Math.max(30, maxNodeWidth * (1-1/(1+ele.data('p'))));

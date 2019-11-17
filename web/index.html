@@ -3,15 +3,63 @@
     <head>
         <title>Via 2.0</title>
         <meta charset="utf-8">
-        
-        <!-- app styles -->
-        <link rel="stylesheet" type="text/css" href="styles/main.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- app javascript -->
+        <!-- Jquery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Cytoscape -->
+        <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+
+        <!-- Other iVis-at-Bilkent libraries for Cytoscape -->
+		<script src="https://unpkg.com/layout-base/layout-base.js"></script>
+		<script src="https://unpkg.com/avsdf-base/avsdf-base.js"></script>
+		<script src="https://unpkg.com/cose-base/cose-base.js"></script>
+		<script src="https://unpkg.com/cytoscape-graphml/cytoscape-graphml.js"></script>
+		<script src="https://raw.githack.com/iVis-at-Bilkent/cytoscape.js-layvo/unstable/cytoscape-layvo.js"></script>
+
+        <!-- Qtip for Cytoscape -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.css">
+        <script src="scripts/cytoscape-qtip.js"></script>
+
+        <!-- Context Menus for Cytoscape -->
+        <script src="scripts/cytoscape-context-menus.js"></script>
+        <link href="styles/cytoscape-context-menus.css" rel="stylesheet" type="text/css" />
+
+        <!-- CiSE Layout for Cytoscape -->
+        <script src="scripts/cytoscape-cise.js"></script>
+        
+        <!-- Grid Guide for Cytoscape -->
+        <script src="scripts/cytoscape-grid-guide.js"></script>
+
+
+        <!-- font awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- Random Color Generator -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.min.js"></script>
+
+        <!-- bootstrap -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- bootstrap tags input -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js"></script>
+
+
+    
+
+
+        <!-- custom stylesheets -->
+        <link rel="stylesheet" type="text/css" href="styles/main.css">
+        <link rel="stylesheet" type="text/css" href="styles/sidebar.css">
+
+        <!-- custom javascript -->
         <script src="scripts/pathways.js"></script>
         <script src="scripts/compound-nodes.js"></script>
         <script src="scripts/clusters.js"></script>
@@ -22,131 +70,132 @@
         <script src="scripts/graph-display.js"></script>
         <script src="scripts/node-filters.js"></script>
         <script src="scripts/edge-filters.js"></script>
-        
-        <!-- Jquery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-        <!-- Cytoscape -->
-        <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
-        
-        <!-- Other iVis-at-Bilkent libraries -->
-		<script src="https://unpkg.com/layout-base/layout-base.js"></script>
-		<script src="https://unpkg.com/avsdf-base/avsdf-base.js"></script>
-		<script src="https://unpkg.com/cose-base/cose-base.js"></script>
-		<script src="https://unpkg.com/cytoscape-graphml/cytoscape-graphml.js"></script>
-		<script src="https://raw.githack.com/iVis-at-Bilkent/cytoscape.js-layvo/unstable/cytoscape-layvo.js"></script>
-
-		<!-- CiSE Layout -->
-		<script src="scripts/cytoscape-cise.js"></script>
-
-        <!-- Qtip -->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.js"></script>
-        <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.css">
-        <script src="scripts/cytoscape-qtip.js"></script>
-
-        <!-- Random color for clusters -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.min.js"></script>
-
-        <!-- Grid guide extension -->
-        <script src="scripts/cytoscape-grid-guide.js"></script>
-
-        <!-- For autofill on input tags -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
-
-        <!-- Right click toolbar -->
-        <script src="scripts/cytoscape-context-menus.js"></script>
-        <link href="styles/cytoscape-context-menus.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <div>
-            <h1>VIA</h1>
-            <h4>Course Pathways Explorer</h4>
-        </div>
-
-        <!-- <div id="cy"></div>
-        <div id="loading" class="loaded">
-            <span class="fa fa-refresh fa-spin"></span>
-        </div> -->
-
-        <!-- container-fluid : start -->
-        <div class="container-fluid">
-            <row>
-                <div class="col-md-8 col-sm-8 col-lg-8">
-                    <!-- graph : start -->
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Graph</div>
-                        <div class="panel-body">
-                        <div id="cy"></div>
-                        </div>
-                    </div>
-                    <!-- graph : end -->
+        <div class="d-flex" id="wrapper" style="max-width:100%; max-height:100vh">
+      
+          <!-- Sidebar -->
+          <div class="bg-light border-right" id="sidebar-wrapper">
+            <small class="sidebar-heading">MAIN MENU</small>
+            <div class="list-group">
+              
+              <!-- Sidebar Option: Layout-->
+              <a href="#submenu-layout" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action bg-light flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <i class="fa fa-sitemap fa-fw mr-3"></i>
+                    <span class="menu-collapsed">Layouts</span>
+                    <span class="submenu-icon ml-auto"></span>
                 </div>
-        
-                <div class="col-md-4 col-sm-4 col-lg-4">
-                    <!-- editor : start -->
-                    <div class="editor">
-
-                        <!-- View tools : start -->  
-                        <div id="layout-tools" class="panel panel-primary">
-                            <div class="panel-heading">View Tools</div>
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <label for="layout-selector">Choose Layout</label>
-                                    <select class="form-control" id="layout-selector">
-                                        <option value="clusters - grid">clusters - grid</option>
-                                        <option value="clusters - uniform size">clusters - uniform size</option>
-                                        <option value="clusters - overlap">clusters - overlap</option>
-                                        <option value="cise">cise</option>
-                                        <option value="grid">grid</option>
-                                        <option value="circle">circle</option>
-                                        <option value="concentric">concentric</option>
-                                        <option value="cose">cose</option>   
-                                        <option value="breadthfirst">breadthfirst</option>    
-                                        <option value="random">random</option>
-                                    </select>
-                                </div>
-                                <button onclick="changeLayout()" id="run-layout-btn" class="btn btn-success btn-block">Run</button>
-                            </div>
-                        </div>
-                        <!-- View tools : start -->
-
-                        <!-- Filter tools : start -->
-                        <div id="filter-tools" class="panel panel-primary panel-hide">
-                            <div class="panel-heading">Filter Tools</div>
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <!-- <label for="filter-selector">Filter on</label> -->
-                                    <!-- <select class="form-control" id="filter-selector">
-                                        <option value="department">department</option>
-                                        <option value="node probability">node probability</option>
-                                        <option value="edge weight">edge weight</option>
-                                    </select> -->
-                                    <div id="department-filter-div">
-                                        <label style="display:block;">Remove departments by name:</label>
-                                        <select multiple type="text" data-role="tagsinput" class="form-control" style="display:block; width:100%" id="department-names-field" placeholder="eg. ENGR">
-                                        </select>
-                                    </div>
-                                    <!-- </div>
-                                        <label>Node probability range: </label>
-                                        <p>[</p>
-                                        <input type="number" class="col-xs-2" placeholder="0">
-                                        <p>,</p>
-                                        <input type="number" class="col-xs-2" placeholder="1">
-                                        <p>]</p>
-                                    </div> -->
-                                </div>
-                                
-                                <button onclick="filter()" id="filter-btn" class="btn btn-success btn-block">Filter</button>
-                                <button onclick="clearFilters()" id="filter-btn" class="btn btn-primary btn-block">Clear All</button>
-                            </div>
-                            </div>
-                        <!-- Filter tools : end -->
-            
-                    </div>
-                    <!-- editor : end -->
+              </a>
+      
+              <!-- Submenu: Layout-->
+              <div id='submenu-layout' class="collapse sidebar-submenu">
+                  <div id='form-layout' class="form-group">
+                      <label for="layout-selector">Select Layout</label>
+                      <select class="form-control" id="layout-selector">
+                          <option value="clusters - grid">clusters - grid</option>
+                          <option value="clusters - uniform size">clusters - uniform size</option>
+                          <option value="clusters - overlap">clusters - overlap</option>
+                          <option value="cise">cise</option>
+                          <option value="grid">grid</option>
+                          <option value="circle">circle</option>
+                          <option value="concentric">concentric</option>
+                          <option value="cose">cose</option>   
+                          <option value="breadthfirst">breadthfirst</option>    
+                          <option value="random">random</option>
+                      </select>
+                  </div>
+                  <button onclick="changeLayout()" id="run-layout-btn" class="btn btn-success btn-block">Run</button>
+              </div>
+      
+              <!-- Sidebar Option: Filter-->
+              <a href="#submenu-filter" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action bg-light flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-filter fa-fw mr-3"></span> 
+                    <span class="menu-collapsed">Filters</span>
+                    <span class="submenu-icon ml-auto"></span>
                 </div>
-            </row>
-        </div>
-        <!-- container-fluid : end -->
-    </body>
+              </a>
+      
+              <!-- Submenu: Filter-->
+              <div id='submenu-filter' class="collapse sidebar-submenu">
+
+                <!-- Department filter -->
+                <div class="form-group">
+                    <div id="department-filter-div">
+                        <label style="display:block;">Remove Departments:</label>
+                        <select multiple type="text" data-role="tagsinput" class="form-control" style="display:block; width:100%" id="department-names-field" placeholder="eg. ENGR">
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="removeDepartments()" class="btn btn-success btn-block">Remove Departments</button>
+                <button onclick="resetDepartmentFilter()" class="btn btn-primary btn-block">Reset</button>
+                
+                <br>
+
+                <!-- Node probability filter -->
+                <div id="node-prob-filter-div" style="margin-bottom: 10px;">
+                        <label style="display:block;">Show Nodes Probabilities in Range:</label>
+                        <span>[</span>
+                        <input type="number" min=0 max=1 step="0.01" placeholder="0" value=0>
+                        <span>,</span>
+                        <input type="number" min=0 max=1 step="0.01" placeholder="1" value=1>
+                        <span>]</span>
+                </div>
+
+                <button onclick="filterNodeProbability()" class="btn btn-success btn-block">Filter Nodes</button>
+
+                <br>
+
+                <!-- Edge probability filter -->
+                <div id="edge-prob-filter-div" style="margin-bottom: 10px;">
+                    <label style="display:block;">Show Edges Weights in Range:</label>
+                    <span>[</span>
+                    <input type="number" min=0 max=1 step="0.01" placeholder="0" value=0>
+                    <span>,</span>
+                    <input type="number" min=0 max=1 step="0.01" placeholder="1" value=1>
+                    <span>]</span>
+                </div>
+
+                <button onclick="filterEdgeWeight()" class="btn btn-success btn-block">Filter Edges</button>
+
+              </div>
+              
+      
+              <!-- Sidebar Option: Calculate-->
+              <a href="#submenu-calculate" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action bg-light flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <i class="fa fa-calculator fa-fw mr-3"></i>
+                    <span class="menu-collapsed">Calculate</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+              </a>
+      
+              <!-- Submenu: Calculate-->
+              <div id='submenu-calculate' class="collapse sidebar-submenu">
+                    <div id='form-layout' class="form-group">
+                      <label for="degree-fxn-selector">Select Degree Type:</label>
+                      <select class="form-control" id="degree-fxn-selector">
+                          <option value="total degree">Total degree</option>
+                          <option value="in degree">In-degree</option>
+                          <option value="out degree">Out-degree</option>
+                      </select>
+                    </div>
+                    <button onclick="computeDegreeFunction()" class="btn btn-primary btn-block">Compute Degree</button>
+              </div>
+      
+            </div><!--/.list-group-->
+          </div><!-- /#sidebar-wrapper -->
+      
+          <!-- Page Content -->
+          <div id="page-content-wrapper">
+            <div class="container-fluid">
+              <div id="cy"></div>
+            </div>
+          </div><!-- /#page-content-wrapper -->
+
+        </div><!-- /#wrapper -->
+      </body>
 </html>

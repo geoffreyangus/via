@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 function runInitialLayout() {
     let layout = runDepartmentsClusterLayout('grid');
-    cy.fit();
+    cy.fit(cy.elements, 20);
 }
 
 function changeLayout() {

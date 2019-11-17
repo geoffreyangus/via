@@ -1,35 +1,18 @@
-body {
-    background-color: #9EC7F7 !important;
-    font-family: helvetica;
-    font-size: 14px;
+#page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+}
+
+.container-fluid {
+    height: 100vh;
+    padding: 0 !important;
+}
+
+#cy {
+    height: 100vh;
+    background-color: #333;
 }
   
-#cy {
-    border: solid;
-    border-width: 1;
-    height: 500px;
-    background-color: white;
-    height: 75vh;
-}
-
-br {
-    line-height: 10px;
- }
-
-h1, h4 {
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-    width: auto;
-}
-
-h1 {
-    margin-bottom: 0px;
-}
-
-h4 {
-    margin-top: 0px;
-}
-
 #loading {
     position: absolute;
     left: 0;

@@ -7,7 +7,7 @@ function styleEdges() {
         if (sourceDept === targetDept) {
             return window.departmentsClusterColors[sourceDept];
         }
-        return 'black';
+        return 'white';
     };
 
     var edgeWidth = function(ele) {
