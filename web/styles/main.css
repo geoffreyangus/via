@@ -10,7 +10,7 @@
 
 #cy {
     height: 100vh;
-    background-color: #333;
+    background-color:#222;
 }
   
 #loading {
@@ -36,4 +36,8 @@
 div.bootstrap-tagsinput {
     display: block;
     width: 100%;
+}
+
+hr {
+    color: #333;
 }

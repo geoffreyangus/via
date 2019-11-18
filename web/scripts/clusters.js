@@ -41,6 +41,10 @@ function setUpClusterConstants() {
     })
 }
 
+function mapStylesToData() {
+    
+}
+
 /* returns the size of the cluster defined by the department */
 function getClusterSize(dept) {
     return window.cy.nodes().filter(function (ele) {

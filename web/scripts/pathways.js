@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 computeBoundingBoxesForClusters();
                 styleNodesByCluster();
                 styleEdges();
+                console.log(JSON.stringify(cy.json()));
                 addQTip();
             })
             .then(() => {
