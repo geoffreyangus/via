@@ -1,5 +1,5 @@
 function setUpNodeConstants() {
-    window.maxNodeWidth = 50;
+    window.maxNodeWidth = 100;
     window.minNodeWidth = 30;
     // window.selectedNodes = cy.collection();
 }
@@ -33,6 +33,10 @@ function styleNodesByCluster() {
         'border-color': '#5bc0de',
         'border-width': 3,
         'background-color': 'yellow'
+    }).update();
+
+    cy.style().selector('node.notDisplayed').style({
+        'display': 'none'
     }).update();
 }
 

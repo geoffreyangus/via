@@ -20,6 +20,7 @@ function styleEdges() {
         }
         return 2;
     }
+    
     cy.style().selector('edge').style({
         'width': edgeWidth,
         'line-color': edgeColor,
@@ -32,5 +33,9 @@ function styleEdges() {
     })
     .selector('edge.highlighted').style({
         'color': 'red'
+    }).update();
+
+    cy.style().selector('edge.notDisplayed').style({
+        'display': 'none'
     }).update();
 }

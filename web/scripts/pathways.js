@@ -20,9 +20,8 @@ document.addEventListener('DOMContentLoaded', function(){
     var loading = document.getElementById('loading');
 
     let loadJsonPromises = [];
-    // loadJsonPromises.push(loadJSON('data/elementsBrief.json'));
-    // loadJsonPromises.push(loadJSON('data/elementsFull.json'));
-    loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
+    loadJsonPromises.push(loadJSON('data/elementsFull.json'));
+    // loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
     loadJsonPromises.push(loadJSON('data/cyStyle.json'));
 
     Promise.all(loadJsonPromises).then(data => {
@@ -30,15 +29,13 @@ document.addEventListener('DOMContentLoaded', function(){
         let cyElements = JSON.parse(data[0]).elements;
         let cyStyle = JSON.parse(data[1]).style;
 
-        //add parent attribute for compound node creation
-        // cyElements.nodes.forEach(element => {
-        //     element.data.parent = null; 
-        // });
-
         var cy = window.cy = cytoscape({
-            container: document.getElementById('cy'), // container to render in
+            container: document.getElementById('cy'),
             elements: cyElements,
-            style: cyStyle
+            style: cyStyle,
+            hideEdgesOnViewport: true,
+            wheelSensitivity: 0.6,
+            pixelRatio: 1
         });
 
         //temporary to remove extraneous <BEGIN> and <END> nodes from elementsFull.json
@@ -120,11 +117,11 @@ function changeLayout() {
 
     layout.run();
     
-    layout.pon('layoutstop').then(() => {
-        cy.fit();
-    })
+    // layout.pon('layoutstop').then(() => {
+    //     cy.fit(cy.elements, 20);
+    // })
 
-    cy.fit();
+    cy.fit(cy.elements, 20);
 }
 
 function addCyEventListeners() {

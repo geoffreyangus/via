@@ -12,6 +12,19 @@
     height: 100vh;
     background-color:#222;
 }
+
+#graph-title {
+    color: white;
+    margin: 0;
+    /* padding-top: 0.5rem; */
+    /* padding-left: 1rem; */
+    font-family: "Helvetica Neue", Helvetica, Arial ,sans-serif;
+    font-weight: bold;
+    position: absolute;
+    top: 0.5rem;
+    left: 26rem;
+    z-index: 1;
+}
   
 #loading {
     position: absolute;

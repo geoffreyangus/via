@@ -19,14 +19,6 @@ function setUpCompoundNodes() {
     })
 }
 
-function getChildren() {
-    return cy.nodes(':child');
-}
-
-function getParents() {
-    return cy.nodes(':parent');
-}
-
 function getNodesInDepartment(dept) {
     let deptChildren = cy.nodes().filter(function (ele) {
         return ele.data('department') === dept;
