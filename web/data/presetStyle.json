@@ -17,7 +17,8 @@
         {
             "selector" : "edge.highlighted",
             "css" : {
-                "color": "red"
+                "color": "red",
+                "opacity": 1
             }
         },
         {

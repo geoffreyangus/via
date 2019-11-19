@@ -61,6 +61,11 @@ document.addEventListener('DOMContentLoaded', function(){
         //heights and widths of navigator divs must be set after initialization else overwritten by extension
         // $('div.cytoscape-navigator').width(300).height(200);
         // $('div.cytoscape-navigatorView').width(30).height(30);
+        cy.elements().unbind('mouseover');
+        cy.elements().bind('mouseover', (event) => event.target.tippy.show());
+        cy.elements().unbind('mouseout');
+        cy.elements().bind('mouseout', (event) => event.target.tippy.hide());
+        
     }).catch(error => {
         console.log(error);
     });
