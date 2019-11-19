@@ -43,6 +43,12 @@ function setUpClusterConstants() {
 
 function mapStylesToData() {
     return new Promise((resolve, reject) => {
+        for (let i = 0; i < window.numDepartments; i++) {
+            let dept = window.departments[i];
+            cy.nodes('[department="' + dept + '"]').data('backgroundColor', window.departmentsClusterColors[dept]);
+        }
+
+        //set edge colors and widths
         let edgesExternal = cy.edges('[is_internal="external"]');
         console.log(edgesExternal.size());
         edgesExternal.data('color', 'white');

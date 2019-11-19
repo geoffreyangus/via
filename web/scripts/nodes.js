@@ -1,16 +1,11 @@
 function setUpNodeConstants() {
     window.maxNodeWidth = 50;
-    // window.selectedNodes = cy.collection();
 }
 
 function styleNodesByCluster() {
     cy.style().selector('node').style({
-        'background-color': function (ele) {
-            return window.departmentsClusterColors[ele.data('department')];
-        },
-        'background-opacity': function (ele) {
-            return 1;
-        },
+        'background-color': 'data(backgroundColor)',
+        'background-opacity': 1,
         'border-width': 1,
         'border-color': 'white',
         'width': function (ele) {
@@ -19,6 +14,8 @@ function styleNodesByCluster() {
         'height': function (ele) {
             return Math.max(30, maxNodeWidth * (1-1/(1+ele.data('p'))));
         },
+        // 'width': window.maxNodeWidth,
+        // 'height': window.maxNodeWidth,
         'label': 'data(name)',
         'text-background-shape': 'roundrectangle',
         'text-background-color': 'white',
