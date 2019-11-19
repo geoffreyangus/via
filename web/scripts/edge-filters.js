@@ -27,10 +27,8 @@ function filterEdgeWeight() {
      restore edges inside the filtered range,
      and keep track removed edges due to this filter */
      
-    // edgesToRestore.restore();
     edgesToRestore.removeClass('notDisplayed');
     currRemovedEdges = currRemovedEdges.difference(edgesToRestore);
-    // currRemovedEdges = currRemovedEdges.union(cy.remove(edgesToRemove));
     edgesToRemove.addClass('notDisplayed');
     currRemovedEdges = currRemovedEdges.union(edgesToRemove);
     window.filteredElementsMap['edge weight'] = currRemovedEdges;

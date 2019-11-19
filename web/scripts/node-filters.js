@@ -8,17 +8,40 @@ function setUpFilterConstants() {
 }
 
 function removeDepartments() {
-    window.nodesRemovedByDepartmentFilter.restore();
+    // window.filteredElementsMap['department'].removeClass('notDisplayed');
     let depts = $("#department-names-field").val();
-    if (depts) {
-        window.nodesRemovedByDepartmentFilter = cy.nodes().filter(function (ele) {
-            return depts.includes(ele.data('department'));
-        }).remove();
-    }
+    // if (depts) {
+    //     window.nodesRemovedByDepartmentFilter = cy.nodes().filter(function (ele) {
+    //         return depts.includes(ele.data('department'));
+    //     }).remove();
+    // }
+    let currShownNodes = cy.nodes(':inside');
+    let currRemovedElements = window.filteredElementsMap['department'];
+
+    let allNodesExcludedByFilter = cy.nodes().filter(function (ele) {
+        return depts.includes(ele.data('department'));
+    });
+    let allNodesCapturedByFilter = cy.nodes().difference(allNodesExcludedByFilter);
+    let allEdgesRelatedToCapturedNodes = allNodesCapturedByFilter.connectedEdges();
+    let allElementsCapturedByFilter = allNodesCapturedByFilter.union(allEdgesRelatedToCapturedNodes);
+
+    let elementsToRestore = currRemovedElements.intersection(allElementsCapturedByFilter);
+    let nodesToRemove = currShownNodes.intersection(allNodesExcludedByFilter);
+
+    /* remove nodes (and their edges) outside the filtered elements,
+     restore nodes (and their edges) inside the filtered range,
+     and keep track removed elements due to this filter */
+     
+    elementsToRestore.removeClass('notDisplayed');
+    currRemovedElements = currRemovedElements.difference(elementsToRestore);
+    nodesToRemove.addClass('notDisplayed');
+    currRemovedElements = currRemovedElements.union(nodesToRemove);
+
+    window.filteredElementsMap['department'] = currRemovedElements;
 }
 
 function resetDepartmentFilter() {
-    window.nodesRemovedByDepartmentFilter.restore();
+    window.filteredElementsMap['department'].removeClass('notDisplayed');
     window.nodesRemovedByDepartmentFilter = cy.collection();
     $("#department-names-field").tagsinput('removeAll');
 }
@@ -49,7 +72,7 @@ function filterNodeProbability() {
     let currShownNodes = cy.nodes(':inside');
     let currRemovedElements = window.filteredElementsMap['node probability'];
     
-    let allNodesExcludedByFilter = cy.elements('node[p < ' + from + '], node[p > ' + to + ']')
+    let allNodesExcludedByFilter = cy.elements('node[p < ' + from + '], node[p > ' + to + ']');
     let allNodesCapturedByFilter = cy.nodes().difference(allNodesExcludedByFilter);
     let allEdgesRelatedToCapturedNodes = allNodesCapturedByFilter.connectedEdges();
     let allElementsCapturedByFilter = allNodesCapturedByFilter.union(allEdgesRelatedToCapturedNodes);
@@ -61,10 +84,8 @@ function filterNodeProbability() {
      restore nodes (and their edges) inside the filtered range,
      and keep track removed elements due to this filter */
      
-    // elementsToRestore.restore();
     elementsToRestore.removeClass('notDisplayed');
     currRemovedElements = currRemovedElements.difference(elementsToRestore);
-    // currRemovedElements = currRemovedElements.union(cy.remove(nodesToRemove));
     nodesToRemove.addClass('notDisplayed');
     currRemovedElements = currRemovedElements.union(nodesToRemove);
 
