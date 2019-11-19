@@ -16,14 +16,17 @@
 #graph-title {
     color: white;
     margin: 0;
-    /* padding-top: 0.5rem; */
-    /* padding-left: 1rem; */
     font-family: "Helvetica Neue", Helvetica, Arial ,sans-serif;
     font-weight: bold;
     position: absolute;
     top: 0.5rem;
     left: 26rem;
     z-index: 1;
+}
+
+div.cytoscape-navigator {
+	background: #222 !important;
+	border: 1px solid darkgrey !important;
 }
   
 #loading {
@@ -52,5 +55,5 @@ div.bootstrap-tagsinput {
 }
 
 hr {
-    color: #333;
+    color: #222;
 }

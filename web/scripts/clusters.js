@@ -37,12 +37,24 @@ function setUpClusterConstants() {
         }
         window.maxClusterSize = maxSize;
 
-        resolve();
+        mapStylesToData().then(() => {resolve();});
     })
 }
 
 function mapStylesToData() {
-    
+    return new Promise((resolve, reject) => {
+        let edgesExternal = cy.edges('[is_internal="external"]');
+        console.log(edgesExternal.size());
+        edgesExternal.data('color', 'white');
+        edgesExternal.data('width', 2);
+        let edgesInternal = cy.edges('[is_internal="internal"]');
+        console.log(edgesInternal.size());
+        edgesInternal.forEach(function( edge ){
+            edge.data('color', window.departmentsClusterColors[edge.source().data('department')]);
+            edge.data('width', 4);
+        });
+        resolve();
+    })
 }
 
 /* returns the size of the cluster defined by the department */

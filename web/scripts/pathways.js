@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     let loadJsonPromises = [];
     loadJsonPromises.push(loadJSON('data/elementsFull.json'));
-    // loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
+    loadJsonPromises.push(loadJSON('data/presetStyle.json'));
     loadJsonPromises.push(loadJSON('data/cyStyle.json'));
 
     Promise.all(loadJsonPromises).then(data => {
@@ -32,10 +32,7 @@ document.addEventListener('DOMContentLoaded', function(){
         var cy = window.cy = cytoscape({
             container: document.getElementById('cy'),
             elements: cyElements,
-            style: cyStyle,
-            hideEdgesOnViewport: true,
-            wheelSensitivity: 0.6,
-            pixelRatio: 1
+            style: cyStyle
         });
 
         //temporary to remove extraneous <BEGIN> and <END> nodes from elementsFull.json
@@ -50,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 computeBoundingBoxesForClusters();
                 styleNodesByCluster();
                 styleEdges();
-                console.log(JSON.stringify(cy.json()));
                 addQTip();
             })
             .then(() => {
@@ -61,15 +57,17 @@ document.addEventListener('DOMContentLoaded', function(){
                 console.log(error);
             });
         });
-
+        // var nav = cy.navigator();
+        //heights and widths of navigator divs must be set after initialization else overwritten by extension
+        // $('div.cytoscape-navigator').width(300).height(200);
+        // $('div.cytoscape-navigatorView').width(30).height(30);
     }).catch(error => {
         console.log(error);
     });
-
 });
 
 function runInitialLayout() {
-    let layout = runDepartmentsClusterLayout('grid');
+    let layout = runDepartmentsClusterLayout();
     cy.fit(cy.elements, 20);
 }
 
@@ -78,15 +76,8 @@ function changeLayout() {
     let layoutName = selector.options[selector.selectedIndex].text;
     let layout;
     switch (layoutName) {
-        case "clusters - uniform size":
-            layout = runDepartmentsClusterLayout('uniform');
-            break
-        case "clusters - grid":
-            layout = runDepartmentsClusterLayout('grid');
-            break
-        case "clusters - overlap":
-            layout = runDepartmentsClusterLayout('overlap');
-            break
+        case "clusters":
+            layout = runDepartmentsClusterLayout();
         case "cise":
             layout = getCiseLayout();
             break

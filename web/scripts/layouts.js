@@ -99,50 +99,6 @@ function getCiseLayout() {
 }
 
 function runDepartmentsClusterLayout(version) {
-    switch(version) {
-        case 'uniform':
-            return uniform();
-        case 'overlap':
-            return overlap();
-        case 'grid':
-            return grid();
-        default:
-            return grid();
-    }
-}
-
-function uniform() {
-    let lastLayout;
-    let boundingBoxes = getBoundingBoxes1();
-    for (let i = 0; i < window.numDepartments; i++) {
-        let dept = window.departments[i];
-        lastLayout = getChildNodesInDepartment(dept).layout(
-            {name: 'circle',
-            fit: false,
-            boundingBox: boundingBoxes[i],
-            padding: 1000, 
-            avoidOverlap: false});
-        lastLayout.run();
-    }
-    return lastLayout;
-}
-
-function overlap() {
-    let lastLayout;
-    let boundingBoxes = getBoundingBoxes3();
-    for (let i = 0; i < window.numDepartments; i++) {
-        let dept = window.departments[i];
-        lastLayout = getChildNodesInDepartment(dept).layout(
-            {name: 'circle',
-            fit: false,
-            boundingBox: boundingBoxes[i],
-            padding: 1000});
-        lastLayout.run();
-    }
-    return lastLayout;
-}
-
-function grid() {
     let lastLayout;
     window.departments.forEach(dept => {
         box = window.departmentToBoundingBoxesMap[dept];

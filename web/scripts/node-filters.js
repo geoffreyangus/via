@@ -2,7 +2,8 @@ function setUpFilterConstants() {
     window.nodesRemovedByDepartmentFilter = window.cy.collection();
     window.filteredElementsMap = {
         'node probability': cy.collection(),
-        'edge weight': cy.collection()
+        'edge weight': cy.collection(),
+        'department': cy.collection()
     };
 }
 
@@ -45,25 +46,16 @@ function filterNodeProbability() {
     if (from > to) {
         return; // error in range
     }
-    console.log('-----');
     let currShownNodes = cy.nodes(':inside');
-    console.log('currShownNodes', currShownNodes.size());
     let currRemovedElements = window.filteredElementsMap['node probability'];
-    console.log('currRemovedElements', currRemovedElements.size());
     
     let allNodesExcludedByFilter = cy.elements('node[p < ' + from + '], node[p > ' + to + ']')
-    console.log('allNodesExcludedByFilter', allNodesExcludedByFilter.size());
     let allNodesCapturedByFilter = cy.nodes().difference(allNodesExcludedByFilter);
-    console.log('allNodesCapturedByFilter', allNodesCapturedByFilter.size());
     let allEdgesRelatedToCapturedNodes = allNodesCapturedByFilter.connectedEdges();
-    console.log('allEdgesRelatedToCapturedNodes', allEdgesRelatedToCapturedNodes.size());
     let allElementsCapturedByFilter = allNodesCapturedByFilter.union(allEdgesRelatedToCapturedNodes);
-    console.log('allElementsCapturedByFilter', allElementsCapturedByFilter.size());
 
     let elementsToRestore = currRemovedElements.intersection(allElementsCapturedByFilter);
-    console.log('elementsToRestore', elementsToRestore.size());
     let nodesToRemove = currShownNodes.intersection(allNodesExcludedByFilter);
-    console.log('nodesToRemove', nodesToRemove.size());
 
     /* remove nodes (and their edges) outside the filtered range,
      restore nodes (and their edges) inside the filtered range,

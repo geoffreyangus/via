@@ -33,6 +33,10 @@
         <!-- Grid Guide for Cytoscape -->
         <script src="scripts/cytoscape-grid-guide.js"></script>
 
+        <!-- Navigator for Cytoscape -->
+        <script src="scripts/cytoscape-navigator.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles/cytoscape-navigator.css" />
+
         <!-- font awesome -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -92,10 +96,8 @@
                   <div id='form-layout' class="form-group">
                       <label for="layout-selector">Select Layout</label>
                       <select class="form-control" id="layout-selector">
-                          <option value="clusters - grid">clusters - grid</option>
-                          <option value="clusters - uniform size">clusters - uniform size</option>
-                          <option value="clusters - overlap">clusters - overlap</option>
-                          <option value="cise">cise</option>
+                          <option value="clusters">clusters</option>
+                          <option value="cise">cise (max 1000 nodes)</option>
                           <option value="grid">grid</option>
                           <option value="circle">circle</option>
                           <option value="concentric">concentric</option>

@@ -1,8 +1,8 @@
 function setUpNodeConstants() {
-    window.maxNodeWidth = 100;
-    window.minNodeWidth = 30;
+    window.maxNodeWidth = 50;
     // window.selectedNodes = cy.collection();
 }
+
 function styleNodesByCluster() {
     cy.style().selector('node').style({
         'background-color': function (ele) {
@@ -14,10 +14,10 @@ function styleNodesByCluster() {
         'border-width': 1,
         'border-color': 'white',
         'width': function (ele) {
-            return (window.minNodeWidth + window.maxNodeWidth * ele.data('p'));
+            return Math.max(30, maxNodeWidth * (1-1/(1+ele.data('p'))));
         },
         'height': function (ele) {
-            return (window.minNodeWidth + window.maxNodeWidth * ele.data('p'));
+            return Math.max(30, maxNodeWidth * (1-1/(1+ele.data('p'))));
         },
         'label': 'data(name)',
         'text-background-shape': 'roundrectangle',
@@ -27,16 +27,6 @@ function styleNodesByCluster() {
         'font-size': '8pt',
         'text-halign': 'center',
         'text-valign': 'center'
-    }).update();
-
-    cy.style().selector('node.highlighted').style({
-        'border-color': '#5bc0de',
-        'border-width': 3,
-        'background-color': 'yellow'
-    }).update();
-
-    cy.style().selector('node.notDisplayed').style({
-        'display': 'none'
     }).update();
 }
 

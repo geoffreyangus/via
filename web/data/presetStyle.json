@@ -1,0 +1,30 @@
+{
+    "style" : [
+        {
+            "selector" : "node.highlighted'",
+            "css" : {
+                "border-color": "#5bc0de",
+                "border-width": 3,
+                "background-color": "yellow"
+            }
+        },
+        {
+            "selector": "node.notDisplayed",
+            "css": {
+                "display": "none"
+            }
+        },
+        {
+            "selector" : "edge.highlighted'",
+            "css" : {
+                "color": "red"
+            }
+        },
+        {
+            "selector": "edge.notDisplayed",
+            "css": {
+                "display": "none"
+            }
+        }
+    ]
+}
