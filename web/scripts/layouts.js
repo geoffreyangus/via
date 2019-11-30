@@ -98,7 +98,7 @@ function getCiseLayout() {
     return layout;
 }
 
-function runDepartmentsClusterLayout(version) {
+function runDepartmentsClusterLayout() {
     let lastLayout;
     window.departments.forEach(dept => {
         box = window.departmentToBoundingBoxesMap[dept];

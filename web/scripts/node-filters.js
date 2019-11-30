@@ -15,7 +15,7 @@ function removeDepartments() {
     //         return depts.includes(ele.data('department'));
     //     }).remove();
     // }
-    let currShownNodes = cy.nodes(':inside');
+    let currShownNodes = cy.nodes(':visible');
     let currRemovedElements = window.filteredElementsMap['department'];
 
     let allNodesExcludedByFilter = cy.nodes().filter(function (ele) {
@@ -69,7 +69,7 @@ function filterNodeProbability() {
     if (from > to) {
         return; // error in range
     }
-    let currShownNodes = cy.nodes(':inside');
+    let currShownNodes = cy.nodes(':visible');
     let currRemovedElements = window.filteredElementsMap['node probability'];
     
     let allNodesExcludedByFilter = cy.elements('node[p < ' + from + '], node[p > ' + to + ']');

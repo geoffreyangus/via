@@ -14,7 +14,7 @@ function filterEdgeWeight() {
         return; // error in range
     }
 
-    let currShownEdges = cy.edges(':inside');
+    let currShownEdges = cy.edges(':visible');
     let currRemovedEdges = window.filteredElementsMap['edge weight'];
     
     let allEdgesExcludedByFilter = cy.elements('edge[weight < ' + from + '], edge[weight > ' + to + ']')

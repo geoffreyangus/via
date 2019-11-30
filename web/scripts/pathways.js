@@ -82,7 +82,9 @@ function changeLayout() {
     let layout;
     switch (layoutName) {
         case "clusters":
+            console.log("reached clusters case")
             layout = runDepartmentsClusterLayout();
+            break
         case "cise":
             layout = getCiseLayout();
             break
@@ -105,7 +107,7 @@ function changeLayout() {
             layout = getRandomLayout();
             break
         default:
-            layout = runDepartmentsClusterLayout(null);
+            layout = runDepartmentsClusterLayout();
     }
     layout.pon('layoutstart').then(() => {
         // $loading.show();
