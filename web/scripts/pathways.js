@@ -20,9 +20,10 @@ document.addEventListener('DOMContentLoaded', function(){
     var loading = document.getElementById('loading');
 
     let loadJsonPromises = [];
-    loadJsonPromises.push(loadJSON('data/elementsFull.json'));
+    loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
+    // loadJsonPromises.push(loadJSON('data/elementsFull.json'));
     loadJsonPromises.push(loadJSON('data/presetStyle.json'));
-    loadJsonPromises.push(loadJSON('data/cyStyle.json'));
+    // loadJsonPromises.push(loadJSON('data/cyStyle.json'));
 
     Promise.all(loadJsonPromises).then(data => {
         // Parse JSON string into cytoscape fields
@@ -82,7 +83,6 @@ function changeLayout() {
     let layout;
     switch (layoutName) {
         case "clusters":
-            console.log("reached clusters case")
             layout = runDepartmentsClusterLayout();
             break
         case "cise":

@@ -20,7 +20,7 @@
     font-weight: bold;
     position: absolute;
     top: 0.5rem;
-    left: 26rem;
+    left: 210px;
     z-index: 1;
 }
 
@@ -51,7 +51,13 @@ div.cytoscape-navigator {
 
 div.bootstrap-tagsinput {
     display: block;
-    width: 100%;
+    width: 100% !important;
+}
+
+.bootstrap-tagsinput input {
+    display: block !important;
+    width: 100% !important;
+
 }
 
 hr {

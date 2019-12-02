@@ -1,39 +1,3 @@
-function filterEdgeWeight() {
-    let lowerboundInput = document.getElementById('edge-weight-input-lowerbound');
-    let upperboundInput = document.getElementById('edge-weight-input-upperbound');
-
-    let from = lowerboundInput.value != null ? lowerboundInput.value : lowerboundInput.defaultValue;
-    if (from < 0.0 || from > 1.0) {
-        lowerboundInput.value = 0;
-    }
-    let to = upperboundInput.value != null ? upperboundInput.value : upperboundInput.defaultValue;
-    if (to < 0.0 || to > 1.0) {
-        to = upperboundInput.value = 1;
-    }
-    if (from > to) {
-        return; // error in range
-    }
-
-    let currShownEdges = cy.edges(':visible');
-    let currRemovedEdges = window.filteredElementsMap['edge weight'];
-    
-    let allEdgesExcludedByFilter = cy.elements('edge[weight < ' + from + '], edge[weight > ' + to + ']')
-    let allEdgesCapturedByFilter = cy.edges().difference(allEdgesExcludedByFilter);
-
-    let edgesToRestore = currRemovedEdges.intersection(allEdgesCapturedByFilter);
-    let edgesToRemove = currShownEdges.intersection(allEdgesExcludedByFilter);
-
-    /* remove edges outside the filtered range,
-     restore edges inside the filtered range,
-     and keep track removed edges due to this filter */
-     
-    edgesToRestore.removeClass('notDisplayed');
-    currRemovedEdges = currRemovedEdges.difference(edgesToRestore);
-    edgesToRemove.addClass('notDisplayed');
-    currRemovedEdges = currRemovedEdges.union(edgesToRemove);
-    window.filteredElementsMap['edge weight'] = currRemovedEdges;
-}
-
 function setupRightClickToolbar() {
     window.cy.on('cxttap', function(event) { 
         let target = event.target;

@@ -4,6 +4,8 @@ body {
 
 #sidebar-wrapper {
     height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
   
   #sidebar-wrapper .sidebar-heading {
@@ -11,7 +13,12 @@ body {
     font-size: 10pt;
   }
   
-  #sidebar-wrapper .list-group {
+  #sidebar-wrapper {
+    min-width: 200px;
+  }
+
+  .list-group {
+    max-width: 20rem;
     width: 25rem;
   }
   

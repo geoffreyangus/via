@@ -75,8 +75,8 @@
         <script src="scripts/nodes.js"></script>
         <script src="scripts/edges.js"></script>
         <script src="scripts/graph-display.js"></script>
-        <script src="scripts/node-filters.js"></script>
-        <script src="scripts/edge-filters.js"></script>
+        <script src="scripts/sidebar-filters.js"></script>
+        <script src="scripts/context-menu.js"></script>
 
     </head>
     <body>
@@ -130,14 +130,13 @@
                 <!-- Department filter -->
                 <div class="form-group">
                     <div id="department-filter-div">
-                        <label style="display:block;">Remove Departments:</label>
-                        <select multiple type="text" data-role="tagsinput" class="form-control" style="display:block; width:100%" id="department-names-field" placeholder="eg. ENGR">
+                        <label style="display:block;">Filter Departments:</label>
+                        <select multiple type="text" data-role="tagsinput" class="form-control" style="display:block; width:100%" id="department-names-field">
                         </select>
                     </div>
                 </div>
 
-                <button onclick="removeDepartments()" class="btn btn-success btn-block">Remove Departments</button>
-                <button onclick="resetDepartmentFilter()" class="btn btn-primary btn-block">Reset</button>
+                <button onclick="filterDepartments()" class="btn btn-success btn-block">Filter Departments</button>
                 
                 <hr>
 
@@ -167,6 +166,9 @@
 
                 <button onclick="filterEdgeWeight()" class="btn btn-success btn-block">Filter Edges</button>
 
+                <hr>
+
+                <button onclick="resetAllFilters()" class="btn btn-primary btn-block">Reset All</button>
               </div>
               
       
