@@ -1,55 +1,21 @@
 function addQTip() {
-    cy.elements().forEach(function(ele) {
-        makePopper(ele);
-      });
-    // window.cy.on('mouseover', 'node', function(event) {
-    //     var node = event.cyTarget;
-    //     node.qtip({
-    //          content: 'hello',
-    //          show: {
-    //             event: event.type,
-    //          },
-    //          hide: {
-    //             event: 'mouseout unfocus'
-    //          }
-    //     }, event);
-    // });
-    // cy.nodes().qtip({
-    //     content: function(){
-    //         return 'Course: ' + this.data('name') +
-    //                 '\n'+'Probability: ' + this.data('p');
-                    
-    //         },
-    //     position: {
-    //         my: 'top center',
-    //         at: 'bottom center'
-    //     },
-    //     style: {
-    //         classes: 'qtip-bootstrap',
-    //         tip: {
-    //             width: 16,
-    //             height: 8
-    //         }
-    //     }
-    // });
+  cy.elements().forEach(function(ele) {
+    makePopper(ele);
+  });
+}
 
-    // cy.edges().qtip({
-    //     content: function(){
-    //         return 'From ' + cy.getElementById(this.data('source')).data('name') + 
-    //                 ' to ' + cy.getElementById(this.data('target')).data('name') +
-    //                 '\n'+'Weight: ' + this.data('weight')},
-    //     position: {
-    //         my: 'top center',
-    //         at: 'bottom center'
-    //     },
-    //     style: {
-    //         classes: 'qtip-bootstrap',
-    //         tip: {
-    //             width: 16,
-    //             height: 8
-    //         }
-    //     }
-    // });
+function updateCollapsedNodeQTip(supernode) {
+  console.log('supernodeL=: ', supernode);
+  console.log(supernode.popper());
+  makePopper(supernode);
+  // supernode.unbind('mouseover');
+  // supernode.bind('mouseover', (event) => event.target.tippy.show());
+  // supernode.unbind('mouseout');
+  // supernode.bind('mouseout', (event) => event.target.tippy.hide());
+}
+
+function updateExpandedNodeQTip(supernode) {
+  supernode._tippy.destroy();
 }
 
 function makePopper(ele) {

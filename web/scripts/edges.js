@@ -8,7 +8,3 @@ function styleEdges() {
         'curve-style': 'bezier'
     }).update()
 }
-
-function mapEdgeStylesToData() {
-    
-}

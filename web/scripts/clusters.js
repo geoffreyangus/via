@@ -37,7 +37,7 @@ function setUpClusterConstants() {
         }
         window.maxClusterSize = maxSize;
 
-        mapStylesToData().then(() => {resolve();});
+        resolve();
     })
 }
 

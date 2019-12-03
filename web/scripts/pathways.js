@@ -20,40 +20,63 @@ document.addEventListener('DOMContentLoaded', function(){
     var loading = document.getElementById('loading');
 
     let loadJsonPromises = [];
-    loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
-    // loadJsonPromises.push(loadJSON('data/elementsFull.json'));
+    // loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
+    loadJsonPromises.push(loadJSON('data/elementsFull.json'));
     loadJsonPromises.push(loadJSON('data/presetStyle.json'));
     // loadJsonPromises.push(loadJSON('data/cyStyle.json'));
 
     Promise.all(loadJsonPromises).then(data => {
         // Parse JSON string into cytoscape fields
         let cyElements = JSON.parse(data[0]).elements;
-        let cyStyle = JSON.parse(data[1]).style;
+        cyElements.nodes.forEach(element => {
+            element.data.parent = null; //add parent attribute for compound node creation
+        });
+        window.cyStyle = JSON.parse(data[1]).style;
 
         var cy = window.cy = cytoscape({
             container: document.getElementById('cy'),
             elements: cyElements,
-            style: cyStyle
+            style: window.cyStyle
         });
 
         //temporary to remove extraneous <BEGIN> and <END> nodes from elementsFull.json
         cy.remove('#22601');
         cy.remove('#21938');
-
+        cy.boxSelectionEnabled(true);
         cy.ready(function() {
             setUpCyConstants().then(() => {
                 setupRightClickToolbar();
-                addCyEventListeners();
                 setDepartmentTagsTypeahead();
                 computeBoundingBoxesForClusters();
                 styleNodesByCluster();
                 styleEdges();
+            }).then(() => {
                 addQTip();
-            })
-            .then(() => {
                 runInitialLayout();
-                cy.boxSelectionEnabled(true);
-                // showGrid();
+            }).then(() => {
+                window.supernodeApi = cy.expandCollapse({
+					fisheye: false,
+					animate: false,
+					undoable: false,
+					expandCueImage :"../images/icon-plus.png",
+					collapseCueImage:"../images/icon-minus.png"
+                });
+                cy.nodes().on("expandcollapse.aftercollapse", function(event) { 
+                    var supernode = cy.$('[id=\'' + this.data('id') + '\']');
+                    updateCollapsedNodeInfo(supernode).then(() => {
+                        updateCollapsedNodeStyle(supernode);
+                        updateCollapsedNodeQTip(supernode);
+                    }); 
+                });
+                cy.nodes().on("expandcollapse.afterexpand", function(event) { 
+                    var supernode = cy.$('[id=\'' + this.data('id') + '\']');
+                    updateExpandedNodeInfo(supernode).then(() => {
+                        console.log('after info', supernode.data('p'));
+                        updateExpandedNodeStyle(supernode);
+                        updateCollapsedNodeQTip(supernode);
+                    }); 
+                })
+
             }).catch(error => {
                 console.log(error);
             });
@@ -73,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 function runInitialLayout() {
-    let layout = runDepartmentsClusterLayout();
+    runDepartmentsClusterLayout();
     cy.fit(cy.elements, 20);
 }
 
@@ -83,7 +106,7 @@ function changeLayout() {
     let layout;
     switch (layoutName) {
         case "clusters":
-            layout = runDepartmentsClusterLayout();
+            runDepartmentsClusterLayout();
             break
         case "cise":
             layout = getCiseLayout();
@@ -109,27 +132,21 @@ function changeLayout() {
         default:
             layout = runDepartmentsClusterLayout();
     }
-    layout.pon('layoutstart').then(() => {
-        // $loading.show();
-    });
 
-    layout.run();
-    
-    // layout.pon('layoutstop').then(() => {
-    //     cy.fit(cy.elements, 20);
-    // })
-
+    if (layout) layout.run();
     cy.fit(cy.elements, 20);
-}
-
-function addCyEventListeners() {
-    listenSelection();
 }
 
 function setUpCyConstants() {
     return new Promise((resolve, reject) => {
         setUpFilterConstants();
-        setUpClusterConstants();
-        resolve();
+        setUpClusterConstants().then(() => {
+            setUpCompoundNodes();
+        }).then(() => {
+            mapStylesToData();
+        }).then(() => {
+            console.log(cy.$('[id = \'supernode_CS\']').data());
+            resolve();
+        });
     })
 }

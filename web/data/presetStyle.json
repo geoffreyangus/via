@@ -1,30 +1,47 @@
 {
     "style" : [
         {
-            "selector" : "node.highlighted",
-            "css" : {
-                "border-color": "#5bc0de",
-                "border-width": 3,
-                "background-color": "yellow"
-            }
-        },
-        {
             "selector": "node.notDisplayed",
             "css": {
                 "display": "none"
             }
         },
         {
-            "selector" : "edge.highlighted",
-            "css" : {
-                "color": "red",
-                "opacity": 1
-            }
-        },
-        {
             "selector": "edge.notDisplayed",
             "css": {
                 "display": "none"
+            }
+        },
+        {
+            "selector": "node:selected:child",
+            "css": {
+                "border-width": 2,
+                "border-color": "gold"
+            }
+        },
+        {
+            "selector": "node:unselected:child",
+            "css": {
+                "border-width": 1,
+                "border-color": "white"
+            }
+        },
+        {
+            "selector": "node.cy-expand-collapse-collapsed-node",
+            "css": {
+                "shape": "rectangle"
+            }
+        },
+        {
+            "selector": "edge",
+            "css": {
+                "curve-style": "straight"
+            }
+        },
+        {
+            "selector": "edge:selected",
+            "css": {
+                "color": "red"
             }
         }
     ]
