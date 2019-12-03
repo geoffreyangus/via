@@ -15,13 +15,17 @@ var loadJSON = function(filepath) {
     });
 }
 
+$.fn.modal.Constructor.prototype._enforceFocus = function() {};
+$.fn.modal.Constructor.prototype.enforceFocus = function() {};
+
 document.addEventListener('DOMContentLoaded', function(){
+    var clipboard = new Clipboard('.btn');
     setUpNodeConstants();
     var loading = document.getElementById('loading');
 
     let loadJsonPromises = [];
-    loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
-    // loadJsonPromises.push(loadJSON('data/elementsFull.json'));
+    // loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
+    loadJsonPromises.push(loadJSON('data/elementsFull.json'));
     loadJsonPromises.push(loadJSON('data/presetStyle.json'));
     // loadJsonPromises.push(loadJSON('data/cyStyle.json'));
 
@@ -145,7 +149,6 @@ function setUpCyConstants() {
         }).then(() => {
             mapStylesToData();
         }).then(() => {
-            console.log(cy.$('[id = \'supernode_CS\']').data());
             resolve();
         });
     })

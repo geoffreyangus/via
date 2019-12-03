@@ -61,6 +61,9 @@
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
         <script src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js"></script>
 
+        <!-- Copy to clipboard -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.3/clipboard.min.js"></script>
+        
         <!-- custom stylesheets -->
         <link rel="stylesheet" type="text/css" href="styles/main.css">
         <link rel="stylesheet" type="text/css" href="styles/sidebar.css">
@@ -80,7 +83,7 @@
 
     </head>
     <body>
-        <h5 id="graph-title">Via Course Pathways Visualizer</h5>
+        
         <div class="d-flex" id="wrapper" style="max-width:100%; max-height:100vh">
       
           <!-- Sidebar -->
@@ -89,7 +92,7 @@
             <div class="list-group">
               
               <!-- Sidebar Option: Layout-->
-              <a href="#submenu-layout" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action bg-light flex-column align-items-start">
+              <a href="#submenu-layout" data-toggle="collapse" aria-expanded="false" data-target="#submenu-layout" class="list-group-item list-group-item-action bg-light flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <i class="fa fa-sitemap fa-fw mr-3"></i>
                     <span class="menu-collapsed">Layouts</span>
@@ -187,8 +190,8 @@
                       <label for="degree-fxn-selector">Select Degree Type:</label>
                       <select class="form-control" id="degree-fxn-selector">
                           <option value="degree">Degree</option>
-                          <option value="in degree">In-degree</option>
-                          <option value="out degree">Out-degree</option>
+                          <option value="in-degree">In-degree</option>
+                          <option value="out-degree">Out-degree</option>
                       </select>
                     </div>
                     <button onclick="computeDegreeFunction()" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Compute Degree</button>
@@ -200,7 +203,9 @@
           <!-- Page Content -->
           <div id="page-content-wrapper">
             <div class="container-fluid">
-              <div id="cy"></div>
+              <div id="cy">
+                <h5 id="graph-title">Via Course Pathways Visualizer</h5>
+              </div>
             </div>
           </div><!-- /#page-content-wrapper -->
 
@@ -212,11 +217,14 @@
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-body">
-                <h4 class="modal-title" id="#modal-title"></h4>
+                <h4 class="modal-title" id="modal-title"></h4>
                 <hr>
-                <p id="#modal-log"></p>
+                <pre id="modal-log"></pre>
               </div>
               <div class="modal-footer">
+                  <span class="btn btn-default" data-clipboard-target="#modal-log">
+                      <img src="images/clippy.svg" width="13" alt="Copy to clipboard">
+                  </span>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
