@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function(){
     var loading = document.getElementById('loading');
 
     let loadJsonPromises = [];
-    // loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
-    loadJsonPromises.push(loadJSON('data/elementsFull.json'));
+    loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
+    // loadJsonPromises.push(loadJSON('data/elementsFull.json'));
     loadJsonPromises.push(loadJSON('data/presetStyle.json'));
     // loadJsonPromises.push(loadJSON('data/cyStyle.json'));
 

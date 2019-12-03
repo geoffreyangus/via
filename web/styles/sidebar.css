@@ -14,11 +14,11 @@ body {
   }
   
   #sidebar-wrapper {
-    min-width: 200px;
+    max-width: 250px;
   }
 
   .list-group {
-    max-width: 20rem;
+    max-width: 100%;
     width: 25rem;
   }
   
