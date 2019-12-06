@@ -56,7 +56,8 @@ function mapStylesToData() {
         let edgesInternal = cy.edges('[is_internal="internal"]');
         console.log(edgesInternal.size());
         edgesInternal.forEach(function( edge ){
-            edge.data('color', window.departmentsClusterColors[edge.source().data('department')]);
+            //edge.data('color', window.departmentsClusterColors[edge.source().data('department')]);
+        	edge.data('color', 'red');
             edge.data('width', 4);
         });
         resolve();
