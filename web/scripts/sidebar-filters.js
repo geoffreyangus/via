@@ -43,6 +43,22 @@ function filterDepartments() {
     filterOnNodeProperty(nodesCapturedByFilter, 'department');
 }
 
+/**********/
+/*
+function removeDepartmentTags() {
+    window.departments.forEach(dept => {
+        $('#department-names-field').tagsinput('remove', dept);
+    });
+    
+function filterAllDepartments() {
+    let departmentsTagged = $("#department-names-field").val();
+    let nodesCapturedByFilter = cy.nodes().filter(function (ele) {
+        return !departmentsTagged.includes(ele.data('department'));
+    });
+    filterOnNodeProperty(nodesCapturedByFilter, 'department');
+}
+*/
+/**********/
 function filterNodeProbability() {
     // console.log('-- filter node prob --');
     let lowerboundInput = document.getElementById('node-prob-input-lowerbound');
@@ -102,6 +118,16 @@ function filterEdgeWeight() {
     filterOnEdgeProperty(allEdgesCapturedByFilter, 'edge weight');
 }
 
+/* Andreas */
+
+function setEdgePixelWidth() {
+       let edgesExternal = cy.edges('[is_internal="external"]');
+       let external_edge_width = document.getElementById('edge-width').value;
+       edgesExternal.data('width', external_edge_width);
+}
+
+/* End Andreas */
+
 function resetAllFilters() {
     //make all elements visible again
     window.allElementsHiddenByFilters.removeClass('notDisplayed');
@@ -111,6 +137,8 @@ function resetAllFilters() {
     document.getElementById('node-prob-input-upperbound').val = 1;
     document.getElementById('edge-weight-input-lowerbound').val = 0;
     document.getElementById('edge-weight-input-upperbound').val = 1;
+    document.getElementById('edge-width').value = 2;
+    setEdgePixelWidth();
     initializeDepartmentTags();
 }
 

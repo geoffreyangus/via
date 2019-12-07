@@ -140,7 +140,7 @@
                 </div>
 
                 <button onclick="filterDepartments()" class="btn btn-success btn-block">Filter Departments</button>
-                
+                <button onclick="filterAllDepartments()" class="btn btn-success btn-block">Filter All Departments</button>                
                 <hr>
 
                 <!-- Node probability filter -->
@@ -170,6 +170,22 @@
                 <button onclick="filterEdgeWeight()" class="btn btn-success btn-block">Filter Edges</button>
 
                 <hr>
+
+                <!-- Andreas: Pixel width -->
+                <div id="edge-thickness-div" style="margin-bottom: 10px;">
+                    <label style="display:block;">Set cross-department link width:</label>
+                    <input id="edge-width"
+                           type="number"
+                           min=1 max=20 step="1"
+                           placeholder="1" value=2
+                           onclick="setEdgePixelWidth()"
+                           onkeydown = "if (event.keyCode == 13)
+                                        setEdgePixelWidth()" 
+                           >
+                </div>
+
+                <hr>
+                <!-- End Andreas -->
 
                 <button onclick="resetAllFilters()" class="btn btn-primary btn-block">Reset All</button>
               </div>
