@@ -44,11 +44,11 @@ function filterDepartments() {
 }
 
 /**********/
+function filterAllDepartments() {
+	$('#department-names-field').tagsinput('removeAll');
+	filterDepartments();
+}
 /*
-function removeDepartmentTags() {
-    window.departments.forEach(dept => {
-        $('#department-names-field').tagsinput('remove', dept);
-    });
     
 function filterAllDepartments() {
     let departmentsTagged = $("#department-names-field").val();
