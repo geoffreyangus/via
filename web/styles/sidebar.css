@@ -1,5 +1,6 @@
 body {
     overflow-x: hidden;
+    font-size: 12px;
   }
 
 #sidebar-wrapper {
@@ -41,5 +42,5 @@ body {
   }
 
   .sidebar-submenu {
-    padding: 0.5rem;
+    padding: 0.2rem;
   }  

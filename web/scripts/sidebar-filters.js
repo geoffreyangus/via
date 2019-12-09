@@ -1,3 +1,12 @@
+import {INTERNAL_LINK_COLOR,
+        INTERNAL_LINK_WIDTH,
+        EXTERNAL_LINK_COLOR,
+        EXTERNAL_LINK_WIDTH,
+		LINK_HIGHLIGHT_COLOR,
+		LINK_HIGHLIGHT_WIDTH
+        } from "./constants.js";
+
+
 function setUpFilterConstants() {
     window.allElementsHiddenByFilters = window.cy.collection(); //elements (nodes + edges) that have been (collectively) hiden by active filters
     window.filteredElementsMap = {
@@ -30,6 +39,64 @@ function filterOnNodeProperty(allNodesCapturedByFilter, property) {
     window.allElementsHiddenByFilters = cy.$(':hidden');
 }
 
+// For restoring link colors and widths
+// after highlighting paths. I wish this
+// were a class, so there would be encapsulation!
+var pathsToRestore = [];
+
+function courseFutures() {
+	
+	// If a path already highlighted, restore
+	// it first:
+	if (pathsToRestore.length == 0) {
+		restorePathAppearance();
+	}
+	
+	// Given starting course, and distance
+	// from UI, highlight most likely follow-on
+	// courses:
+	fromCourseName = document.getElementById('from-course').value;
+	fromCourseId   = window.courseName2NodeId[fromCourseName];
+	if (typeof(fromCourseId) === 'undefined') {
+		alert(`Course "${fromCourseName}" is unknonw.`);
+		return;
+	}
+	distance = document.getElementById('distance').value;
+	
+	// Get an array of edge objects. The first originates
+	// in the user-specified node; the next ones are 
+	// paths out to user-specified distance.
+	
+	edgeSeq = nextNCourses(fromCourseId, distance);
+	//console.log(edgeSeq);
+	
+	// Save these paths before we change them:
+	pathsToRestore = edgeSeq;
+	
+	/* ************
+//	edgeSeq.forEach(function(edgeObj) {
+//	edgeObj.data('width') = LINK_HIGHLIGHT_WIDTH;
+//		edgeObj.data('color') = LINK_HIGHLIGHT_COLOR;
+//	});
+	/* ************	*/
+}
+
+function restorePathAppearance() {
+	// Restore color and width of all 
+	// edge objs stored in pathsToRestore.
+	
+	if (typeof(pathsToRestore) === 'undefined' || pathsToRestore.length == 0) {
+		return;
+	}
+	/* ************	*/
+//	pathsToRestore.forEach(function(edgeObj) {
+//		edgeObj.data('width') = EXTERNAL_LINK_WIDTH;
+//		edgeObj.data('color') = EXTERNAL_LINK_COLOR;
+//	});
+	/* ************	*/
+	pathsToRestore = [];
+}
+
 function filterDepartments() {
     // console.log('-- filter departments --');
     let departmentsTagged = $("#department-names-field").val();
@@ -43,22 +110,11 @@ function filterDepartments() {
     filterOnNodeProperty(nodesCapturedByFilter, 'department');
 }
 
-/**********/
 function filterAllDepartments() {
 	$('#department-names-field').tagsinput('removeAll');
 	filterDepartments();
 }
-/*
-    
-function filterAllDepartments() {
-    let departmentsTagged = $("#department-names-field").val();
-    let nodesCapturedByFilter = cy.nodes().filter(function (ele) {
-        return !departmentsTagged.includes(ele.data('department'));
-    });
-    filterOnNodeProperty(nodesCapturedByFilter, 'department');
-}
-*/
-/**********/
+
 function filterNodeProbability() {
     // console.log('-- filter node prob --');
     let lowerboundInput = document.getElementById('node-prob-input-lowerbound');
@@ -137,7 +193,7 @@ function resetAllFilters() {
     document.getElementById('node-prob-input-upperbound').val = 1;
     document.getElementById('edge-weight-input-lowerbound').val = 0;
     document.getElementById('edge-weight-input-upperbound').val = 1;
-    document.getElementById('edge-width').value = 2;
+    document.getElementById('edge-width').value = EXTERNAL_LINK_WIDTH;
     setEdgePixelWidth();
     initializeDepartmentTags();
 }

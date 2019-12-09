@@ -71,15 +71,16 @@
         <!-- custom javascript -->
         <script src="scripts/pathways.js"></script>
         <script src="scripts/compound-nodes.js"></script>
-        <script src="scripts/clusters.js"></script>
+        <script type="module" src="scripts/clusters.js"></script>
         <script src="scripts/tooltip.js"></script>
         <script src="scripts/layouts.js"></script>
         <script src="scripts/nodes.js"></script>
         <script src="scripts/edges.js"></script>
         <script src="scripts/graph-display.js"></script>
-        <script src="scripts/sidebar-filters.js"></script>
+        <script type="module" src="scripts/sidebar-filters.js"></script>
         <script src="scripts/context-menu.js"></script>
         <script src="scripts/calculate.js"></script>
+        <script type="module" src="scripts/shortestPath.js"></script>        
 
     </head>
     <body>
@@ -187,7 +188,7 @@
                 <hr>
                 <!-- End Andreas -->
 
-                <button onclick="resetAllFilters()" class="btn btn-primary btn-block">Reset All</button>
+                <button onclick="resetAllFilters()" class="btn btn-success btn-block">Reset All</button>
               </div>
               
       
@@ -211,8 +212,16 @@
                       </select>
                     </div>
                     <button onclick="computeDegreeFunction()" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Compute Degree</button>
-              </div>
-      
+                    <div id='form-layout-shortest-paths' class="form-group">
+                      <label style="display:block;">Likely Future Courses:</label>
+                      <input id="from-course" type="text" size="17"
+                             placeholder="Enter course name" value="">
+                      <span>out</span>
+                      <input id="distance" type="number" min="1" max="20" size="3" placeholder="3" value="3">
+                      <span>courses</span>
+                    </div>
+                    <button onclick="courseFutures()" Class="btn btn-primary btn-block">Show Common Path</button>
+              </div> <!-- submenu shortest path -->
             </div><!--/.list-group-->
           </div><!-- /#sidebar-wrapper -->
       

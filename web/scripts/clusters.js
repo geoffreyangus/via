@@ -7,6 +7,13 @@
  *  - window.departmentsClusterSizes
  *  - window.maxClusterSize
  */
+
+import {INTERNAL_LINK_COLOR,
+        INTERNAL_LINK_WIDTH,
+        EXTERNAL_LINK_COLOR,
+        EXTERNAL_LINK_WIDTH
+        } from "./constants.js";
+
 function setUpClusterConstants() {
     return new Promise((resolve, reject) => {
 
@@ -51,14 +58,14 @@ function mapStylesToData() {
         //set edge colors and widths
         let edgesExternal = cy.edges('[is_internal="external"]');
         console.log(edgesExternal.size());
-        edgesExternal.data('color', 'white');
-        edgesExternal.data('width', 2);
+        edgesExternal.data('color', EXTERNAL_LINK_COLOR);
+        edgesExternal.data('width', EXTERNAL_LINK_WIDTH);
         let edgesInternal = cy.edges('[is_internal="internal"]');
         console.log(edgesInternal.size());
         edgesInternal.forEach(function( edge ){
             //edge.data('color', window.departmentsClusterColors[edge.source().data('department')]);
-        	edge.data('color', 'red');
-            edge.data('width', 4);
+        	edge.data('color', INTERNAL_LINK_COLOR);
+            edge.data('width', INTERNAL_LINK_WIDTH);
         });
         resolve();
     })

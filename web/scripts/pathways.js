@@ -25,8 +25,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
     let loadJsonPromises = [];
     // loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
-    loadJsonPromises.push(loadJSON('data/elementsFull.json'));
-    loadJsonPromises.push(loadJSON('data/presetStyle.json'));
+    loadJsonPromises.push(loadJSON('data/elementsFull.json'));          // data[0]
+    loadJsonPromises.push(loadJSON('data/presetStyle.json'));           // data[1]
+    loadJsonPromises.push(loadJSON('data/shortestPathMatrix.json'));  // data[2]
+    loadJsonPromises.push(loadJSON('data/courseName2NodeId.json'));// data[3]
+    loadJsonPromises.push(loadJSON('data/linkName2LinkId.json'));  // data[4]
+    loadJsonPromises.push(loadJSON('data/linkId2LinkInfo.json'));  // data[5]
     // loadJsonPromises.push(loadJSON('data/cyStyle.json'));
 
     Promise.all(loadJsonPromises).then(data => {
@@ -41,7 +45,13 @@ document.addEventListener('DOMContentLoaded', function(){
             container: document.getElementById('cy'),
             elements: cyElements,
             style: window.cyStyle
-        });
+        })
+            
+        // 	Shortest path from any course to any other:
+        window.coursePathMatrix = JSON.parse(data[2])
+        window.courseName2NodeId = JSON.parse(data[3])
+        window.linkName2LinkId = JSON.parse(data[4])
+        window.linkId2LinkInfo = JSON.parse(data[5])        
 
         //temporary to remove extraneous <BEGIN> and <END> nodes from elementsFull.json
         cy.remove('#22601');
