@@ -8,11 +8,19 @@
  *  - window.maxClusterSize
  */
 
+// Switch to modules when time:
+/*
 import {INTERNAL_LINK_COLOR,
         INTERNAL_LINK_WIDTH,
         EXTERNAL_LINK_COLOR,
         EXTERNAL_LINK_WIDTH
         } from "./constants.js";
+*/        
+        
+var INTERNAL_LINK_COLOR = 'red';
+var INTERNAL_LINK_WIDTH = 4;
+var EXTERNAL_LINK_COLOR = 'white';
+var EXTERNAL_LINK_WIDTH = 2;
 
 function setUpClusterConstants() {
     return new Promise((resolve, reject) => {
