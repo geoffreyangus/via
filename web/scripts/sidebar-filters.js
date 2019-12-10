@@ -24,9 +24,11 @@ function filterOnNodeProperty(allNodesCapturedByFilter, property) {
 
     let elementsToRemove = visibleElements.intersection(allElementsCapturedByFilter);
     // console.log('nodesToRemove', nodesToRemove.size());
-    elementsToRestore.removeClass('notDisplayed');
+    //elementsToRestore.removeClass('notDisplayed');
+    elementsToRestore.show();
     // console.log('elementsToRestore', elementsToRestore.size());
-    elementsToRemove.addClass('notDisplayed');
+    // elementsToRemove.addClass('notDisplayed');
+    allElementsCapturedByFilter.hide();
     
     window.allElementsHiddenByFilters = cy.$(':hidden');
 }
@@ -82,9 +84,12 @@ function filterOnEdgeProperty(allEdgesCapturedByFilter, property) {
     }
 
     let edgesToRemove = visibleEdges.intersection(allEdgesCapturedByFilter);
-    edgesToRestore.removeClass('notDisplayed');
-    edgesToRemove.addClass('notDisplayed');
+    //edgesToRestore.removeClass('notDisplayed');
+    //edgesToRemove.addClass('notDisplayed');
     
+    edgesToRestore.show();
+    edgesToRemove.hide();
+
     window.allElementsHiddenByFilters = cy.$(':hidden');
 }
 
@@ -116,7 +121,8 @@ function setEdgePixelWidth() {
 
 function resetAllFilters() {
     //make all elements visible again
-    window.allElementsHiddenByFilters.removeClass('notDisplayed');
+    // window.allElementsHiddenByFilters.removeClass('notDisplayed');
+    cy.elements().show();
 
     //reset input forms
     document.getElementById('node-prob-input-lowerbound').val = 0;

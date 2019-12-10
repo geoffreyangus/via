@@ -177,7 +177,6 @@
 
                 <hr>
 
-                <!-- Andreas: Pixel width -->
                 <div id="edge-thickness-div" style="margin-bottom: 10px;">
                     <label style="display:block;">Set cross-department link width:</label>
                     <input id="edge-width"
@@ -191,7 +190,6 @@
                 </div>
 
                 <hr>
-                <!-- End Andreas -->
 
                 <button onclick="resetAllFilters()" class="btn btn-success btn-block">Reset All</button>
               </div>
@@ -216,7 +214,10 @@
                           <option value="out-degree">Out-degree</option>
                       </select>
                     </div>
-                    <button onclick="computeDegreeFunction()" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Compute Degree</button>
+                    <button onclick="computeDegreeFunction()"
+                            class="btn btn-primary btn-block"
+                            data-toggle="modal"
+                            data-target="#myModal">Compute Degree</button>
                     <div id='form-layout-shortest-paths' class="form-group">
                       <label style="display:block;">Likely Future Courses:</label>
                       <input id="from-course" type="text" size="17"
@@ -225,7 +226,16 @@
                                           courseFutures()" 
                              >
                       <span>out</span>
-                      <input id="distance" type="number" min="1" max="20" size="3" placeholder="3" value="3">
+                      <input id="distance"
+                             type="number"
+                             min="1"
+                             max="20"
+                             size="3"
+                             placeholder="3"
+                             value="3"
+                             onkeydown = "if (event.keyCode == 13)
+                                          courseFutures()" 
+                             >
                       <span>courses</span>
                     </div>
                     <button onclick="courseFutures()" Class="btn btn-primary btn-block">Show Common Path</button>
