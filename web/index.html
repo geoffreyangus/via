@@ -80,7 +80,7 @@
         <script src="scripts/sidebar-filters.js"></script>
         <script src="scripts/context-menu.js"></script>
         <script src="scripts/calculate.js"></script>
-        <script src="scripts/shortestPath.js"></script>        
+        <script src="scripts/pathDisplays.js"></script>        
 
     </head>
     <body>
@@ -104,6 +104,10 @@
               <!-- Submenu: Layout-->
               <div id='submenu-layout' class="collapse sidebar-submenu">
                   <div id='form-layout' class="form-group">
+                    <button onclick="resetView()" id="reset-view-btn" class="btn btn-success btn-block">Reset View</button>
+                  </div>
+                  <hr>
+                  <div id='form-layout' class="form-group">
                       <label for="layout-selector">Select Layout</label>
                       <select class="form-control" id="layout-selector">
                           <option value="clusters">clusters</option>
@@ -119,6 +123,7 @@
                   <button onclick="changeLayout()" id="run-layout-btn" class="btn btn-success btn-block">Run</button>
               </div>
       
+
               <!-- Sidebar Option: Filter-->
               <a href="#submenu-filter" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action bg-light flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
@@ -215,7 +220,10 @@
                     <div id='form-layout-shortest-paths' class="form-group">
                       <label style="display:block;">Likely Future Courses:</label>
                       <input id="from-course" type="text" size="17"
-                             placeholder="Enter course name" value="">
+                             placeholder="Enter course name" value=""
+                             onkeydown = "if (event.keyCode == 13)
+                                          courseFutures()" 
+                             >
                       <span>out</span>
                       <input id="distance" type="number" min="1" max="20" size="3" placeholder="3" value="3">
                       <span>courses</span>

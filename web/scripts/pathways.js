@@ -21,16 +21,14 @@ $.fn.modal.Constructor.prototype.enforceFocus = function() {};
 document.addEventListener('DOMContentLoaded', function(){
     var clipboard = new Clipboard('.btn');
     setUpNodeConstants();
+    setUpPathDisplayConstants();
     var loading = document.getElementById('loading');
 
     let loadJsonPromises = [];
-    // loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
+    //loadJsonPromises.push(loadJSON('data/elementsSimple.json'));
     loadJsonPromises.push(loadJSON('data/elementsFull.json'));          // data[0]
-    loadJsonPromises.push(loadJSON('data/presetStyle.json'));           // data[1]
-    loadJsonPromises.push(loadJSON('data/shortestPathMatrix.json'));  // data[2]
-    loadJsonPromises.push(loadJSON('data/courseName2NodeId.json'));// data[3]
-    loadJsonPromises.push(loadJSON('data/linkName2LinkId.json'));  // data[4]
-    loadJsonPromises.push(loadJSON('data/linkId2LinkInfo.json'));  // data[5]
+    loadJsonPromises.push(loadJSON('data/elementsSimple.json'));        // data[0]
+    loadJsonPromises.push(loadJSON('data/presetStyle.json'));           // data[2]
     // loadJsonPromises.push(loadJSON('data/cyStyle.json'));
 
     Promise.all(loadJsonPromises).then(data => {
@@ -47,12 +45,6 @@ document.addEventListener('DOMContentLoaded', function(){
             style: window.cyStyle
         })
             
-        // 	Shortest path from any course to any other:
-        window.coursePathMatrix = JSON.parse(data[2])
-        window.courseName2NodeId = JSON.parse(data[3])
-        window.linkName2LinkId = JSON.parse(data[4])
-        window.linkId2LinkInfo = JSON.parse(data[5])        
-
         //temporary to remove extraneous <BEGIN> and <END> nodes from elementsFull.json
         cy.remove('#22601');
         cy.remove('#21938');
@@ -112,6 +104,23 @@ document.addEventListener('DOMContentLoaded', function(){
 function runInitialLayout() {
     runDepartmentsClusterLayout();
     cy.fit(cy.elements, 20);
+
+    // Remember initial zoom and pan:
+    if (typeof(window.defaultGraphPosition) === 'undefined') {
+    	currPan = cy.pan();
+	    window.defaultGraphPosition = {
+	    	"DEFAULT_ZOOM" : cy.zoom(),
+	    	"DEFAULT_PAN"  : {'x' : currPan.x, 'y' : currPan.y}
+	    };
+
+	    if (typeof(window.defaultLinkStylesMap) === 'undefined') {
+	    	window.defaultLinkStylesMap = {};
+	    }
+	    window.defaultLinkStylesMap.DEFAULT_INTERNAL_LINK_OPACITY =	
+	    	cy.edges('[is_internal = "internal"]').style('opacity');
+	    window.defaultLinkStylesMap.DEFAULT_EXTERNAL_LINK_OPACITY =
+	    	cy.edges('[is_internal = "external"]').style('opacity');	    	
+    }
 }
 
 function changeLayout() {

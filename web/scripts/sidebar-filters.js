@@ -1,21 +1,3 @@
-// Switch to modules when time:
-
-/*
-import {INTERNAL_LINK_COLOR,
-        INTERNAL_LINK_WIDTH,
-        EXTERNAL_LINK_COLOR,
-        EXTERNAL_LINK_WIDTH,
-		LINK_HIGHLIGHT_COLOR,
-		LINK_HIGHLIGHT_WIDTH
-        } from "./constants.js";
-*/
-
-var INTERNAL_LINK_COLOR = 'red';
-var INTERNAL_LINK_WIDTH = 4;
-var EXTERNAL_LINK_COLOR = 'white';
-var EXTERNAL_LINK_WIDTH = 2;
-var LINK_HIGHLIGHT_COLOR = '#FF00CC'; // Purple Pizzazz
-var LINK_HIGHLIGHT_WIDTH = 10;
 
 function setUpFilterConstants() {
     window.allElementsHiddenByFilters = window.cy.collection(); //elements (nodes + edges) that have been (collectively) hidden by active filters
@@ -47,82 +29,6 @@ function filterOnNodeProperty(allNodesCapturedByFilter, property) {
     elementsToRemove.addClass('notDisplayed');
     
     window.allElementsHiddenByFilters = cy.$(':hidden');
-}
-
-// For restoring link colors and widths
-// after highlighting paths. I wish this
-// were a class, so there would be encapsulation!
-var pathsToRestore = null;
-
-function courseFutures() {
-	
-	// If a path already highlighted, restore
-	// it first:
-	if (pathsToRestore !== null) {
-		restorePathAppearance();
-	}
-	
-	// Given starting course, and distance
-	// from UI, highlight most likely follow-on
-	// courses:
-	fromCourseName = document.getElementById('from-course').value;
-	
-	// If no course was provided, just treat the 
-	// path request button push as resetting all
-	// the links, which we did above:
-	if (fromCourseName.length == 0) {
-		return;
-	}
-	
-	fromCourseId   = window.courseName2NodeId[fromCourseName];
-	if (typeof(fromCourseId) === 'undefined') {
-		alert(`Course "${fromCourseName}" is unknonw.`);
-		return;
-	}
-	distance = document.getElementById('distance').value;
-	
-	// Get an array of edge objects. The first originates
-	// in the user-specified node; the next ones are 
-	// paths out to user-specified distance.
-	
-	edgeSeq = nextNCourses(fromCourseId, distance);
-	//console.log(edgeSeq);
-	
-    let visibleElements = cy.$(':visible');
-    let edgesMadeInvisible = visibleElements.difference(cy.edges());
-    
-	// Save these paths before we change them:
-	pathsToRestore = {'neighborLinks' : edgeSeq,
-					  'hiddenLinks'   : edgesMadeInvisible
-	};
-    
-    // Make all edges invisible:
-    cy.edges().addClass('notDisplayed')
-    // Bring back the few between neighbors:
-    edgeSeq.forEach((el) => el.removeClass('notDisplayed'))
-	
-	edgeSeq.forEach(function(edgeObj) {
-		edgeObj.data('width', LINK_HIGHLIGHT_WIDTH);
-		edgeObj.data('color', LINK_HIGHLIGHT_COLOR);
-	});
-}
-
-function restorePathAppearance() {
-	// Restore color and width of all 
-	// edge objs stored in pathsToRestore.
-	
-	if (typeof(pathsToRestore) === 'undefined' || pathsToRestore === null) {
-		return;
-	}
-	
-	pathsToRestore['neighborLinks'].forEach(function(edgeObj) {
-		edgeObj.data('width', EXTERNAL_LINK_WIDTH);
-		edgeObj.data('color', EXTERNAL_LINK_COLOR);
-	});
-	
-	pathsToRestore['hiddenLinks'].forEach((linkObj) => linkObj.removeClass('notDisplayed'))
-	
-	pathsToRestore = null;
 }
 
 function filterDepartments() {
@@ -202,15 +108,11 @@ function filterEdgeWeight() {
     filterOnEdgeProperty(allEdgesCapturedByFilter, 'edge weight');
 }
 
-/* Andreas */
-
 function setEdgePixelWidth() {
        let edgesExternal = cy.edges('[is_internal="external"]');
        let external_edge_width = document.getElementById('edge-width').value;
        edgesExternal.data('width', external_edge_width);
 }
-
-/* End Andreas */
 
 function resetAllFilters() {
     //make all elements visible again
@@ -221,7 +123,7 @@ function resetAllFilters() {
     document.getElementById('node-prob-input-upperbound').val = 1;
     document.getElementById('edge-weight-input-lowerbound').val = 0;
     document.getElementById('edge-weight-input-upperbound').val = 1;
-    document.getElementById('edge-width').value = EXTERNAL_LINK_WIDTH;
+    document.getElementById('edge-width').value = window.defaultLinkStylesMap.EXTERNAL_LINK_WIDTH;
     setEdgePixelWidth();
     initializeDepartmentTags();
 }
@@ -242,3 +144,4 @@ function initializeDepartmentTags() {
         $('#department-names-field').tagsinput('add', dept);
     });
 }
+
